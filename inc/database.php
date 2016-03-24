@@ -8,6 +8,7 @@
 
 namespace McAvoy;
 
+define( 'MCAVOY_DB_SEARCHES_TABLE', 'mcavoy_searches' );
 define( 'MCAVOY_DB_VERSION', 1 );
 
 /**
@@ -18,7 +19,7 @@ define( 'MCAVOY_DB_VERSION', 1 );
 function create_database_table() {
 	global $wpdb;
 
-	$table   = $wpdb->prefix . 'mcavoy_searches';
+	$table   = $wpdb->prefix . MCAVOY_DB_SEARCHES_TABLE;
 	$charset = $wpdb->get_charset_collate();
 	$sql     = "CREATE TABLE IF NOT EXISTS $table (
 		`id` tinyint(11) unsigned NOT NULL AUTO_INCREMENT,
