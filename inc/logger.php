@@ -9,6 +9,23 @@
 namespace McAvoy;
 
 /**
+ * Listen for search queries and send them to save_search_query() if they're valid.
+ */
+function capture_search_query() {
+	if ( ! is_search() || is_paged() ) {
+		return;
+	}
+
+	// Prepare data about this query.
+	$term = get_query_var( 's', false );
+	$meta = prepare_query_metadata();
+
+	// Save this search query.
+	save_search_query( $term, $meta );
+}
+add_action( 'template_redirect', __NAMESPACE__ . '\capture_search_query' );
+
+/**
  * Prepare meta data about a query that should be saved.
  *
  * @return array An array of meta data.
@@ -25,4 +42,18 @@ function prepare_query_metadata() {
 	 * @param array $data Search meta data.
 	 */
 	return apply_filters( 'mcavoy_prepare_query_metadata', $data );
+}
+
+/**
+ * Save a search query.
+ *
+ * @param string $term     The search term.
+ * @param array  $metadata Optional. Additional metadata to save with the query. Default is an
+ *                         empty array.
+ * @return bool True if the query was saved successfully, false otherwise.
+ *
+ * @todo Flesh out this function.
+ */
+function save_search_query( $term, $metadata = array() ) {
+	return true;
 }

@@ -16,6 +16,75 @@ class LoggerTest extends TestCase {
 		'logger.php',
 	);
 
+	public function test_capture_search_query() {
+		$this->markTestSkipped( 'Namespace conflicts with WP_Mock that need solving.' );
+		M::wpFunction( 'is_search', array(
+			'times'  => 1,
+			'return' => true,
+		) );
+
+		M::wpFunction( 'is_paged', array(
+			'times'  => 1,
+			'return' => false,
+		) );
+
+		M::wpFunction( 'get_query_var', array(
+			'times'  => 1,
+			'args'   => array( 's', false ),
+			'return' => 'foo',
+		) );
+
+		M::wpFunction( __NAMESPACE__ . '\prepare_query_metadata', array(
+			'times'  => 1,
+			'return' => array( 'meta', 'data' ),
+		) );
+
+		M::wpFunction( __NAMESPACE__ . '\save_query', array(
+			'times'  => 1,
+			'args'   => array( 'foo', array( 'meta', 'data' ) ),
+			'return' => true,
+		) );
+
+		capture_search_query();
+	}
+
+	public function test_capture_search_query_checks_if_is_search() {
+		M::wpFunction( 'is_search', array(
+			'times'  => 1,
+			'return' => false,
+		) );
+
+		M::wpFunction( 'is_paged', array(
+			'times'  => 0,
+		) );
+
+		M::wpFunction( 'get_query_var', array(
+			'times'  => 0,
+		) );
+
+		capture_search_query();
+	}
+
+	// We're not concerned about logging a search query if it's page 2+ of results.
+	public function test_capture_search_query_checks_if_is_paged() {
+		M::wpFunction( 'is_search', array(
+			'times'  => 1,
+			'return' => true,
+		) );
+
+		M::wpFunction( 'is_paged', array(
+			'times'  => 1,
+			'return' => true,
+		) );
+
+		M::wpFunction( 'get_query_var', array(
+			'times'  => 0,
+		) );
+
+		capture_search_query();
+	}
+
+
 	public function test_prepare_query_metadata() {
 		$server   = array(
 			'REMOTE_ADDR'     => '192.168.1.1',
