@@ -27,3 +27,11 @@ function activate_plugin() {
 	create_database_table();
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_plugin' );
+
+/**
+ * Load the plugin textdomain.
+ */
+function load_textdomain() {
+	load_plugin_textdomain( 'mcavoy', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action( 'plugins_loaded', __NAMESPACE__ . '\load_textdomain' );
