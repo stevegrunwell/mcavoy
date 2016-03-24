@@ -18,3 +18,11 @@ namespace McAvoy;
 
 require_once __DIR__ . '/inc/database.php';
 require_once __DIR__ . '/inc/logger.php';
+
+/**
+ * Load the plugin textdomain.
+ */
+function load_textdomain() {
+	load_plugin_textdomain( 'mcavoy', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action( 'plugins_loaded', __NAMESPACE__ . '\load_textdomain' );
