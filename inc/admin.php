@@ -27,7 +27,8 @@ add_action( 'admin_menu', __NAMESPACE__ . '\register_menu_page' );
  * Generate the content for the "Site Searches" page.
  */
 function search_page_callback() {
-	$queries     = get_search_queries();
+	$logger      = get_logger();
+	$queries     = $logger->get_queries();
 	$date_format = get_option( 'links_updated_date_format' );
 ?>
 

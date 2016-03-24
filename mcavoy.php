@@ -27,7 +27,8 @@ require_once __DIR__ . '/inc/loggers/database.php';
  * Procedure to run when the plugin is first activated.
  */
 function activate_plugin() {
-	create_database_table();
+	$logger = get_logger();
+	$logger->activate();
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_plugin' );
 
