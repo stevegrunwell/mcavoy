@@ -17,14 +17,27 @@
 namespace McAvoy;
 
 require_once __DIR__ . '/inc/admin.php';
-require_once __DIR__ . '/inc/database.php';
-require_once __DIR__ . '/inc/logger.php';
+require_once __DIR__ . '/inc/core.php';
+
+// Loggers.
+require_once __DIR__ . '/inc/class-logger.php';
+require_once __DIR__ . '/inc/loggers/database.php';
+
+/**
+ * Initialize the plugin.
+ */
+function init() {
+	$logger = get_logger();
+	$logger->init();
+}
+add_action( 'init', __NAMESPACE__ . '\init' );
 
 /**
  * Procedure to run when the plugin is first activated.
  */
 function activate_plugin() {
-	create_database_table();
+	$logger = get_logger();
+	$logger->activate();
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_plugin' );
 

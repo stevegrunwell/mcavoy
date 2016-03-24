@@ -26,6 +26,26 @@ function capture_search_query() {
 add_action( 'template_redirect', __NAMESPACE__ . '\capture_search_query' );
 
 /**
+ * Get the currently-active logger.
+ *
+ * @global $mcavoy_logger
+ *
+ * @return McAvoy\Logger A Logger instance.
+ */
+function get_logger() {
+	global $mcavoy_logger;
+
+	if ( is_subclass_of( $mcavoy_logger, __NAMESPACE__ . '\Loggers\Logger' ) ) {
+		return $mcavoy_logger;
+	}
+
+	// @todo This should either be a filter or setting, but right now we only have Database.
+	$mcavoy_logger = new Loggers\DatabaseLogger;
+
+	return $mcavoy_logger;
+}
+
+/**
  * Prepare meta data about a query that should be saved.
  *
  * @return array An array of meta data.

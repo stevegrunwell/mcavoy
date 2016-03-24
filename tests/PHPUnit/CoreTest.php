@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the plugin's logger.
+ * Tests for the plugin's core functionality.
  *
  * @package McAvoy
  * @author  Steve Grunwell
@@ -10,10 +10,10 @@ namespace McAvoy;
 
 use WP_Mock as M;
 
-class LoggerTest extends TestCase {
+class CoreTest extends TestCase {
 
 	protected $testFiles = array(
-		'logger.php',
+		'core.php',
 	);
 
 	public function test_capture_search_query() {
