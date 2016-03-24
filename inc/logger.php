@@ -50,10 +50,14 @@ function prepare_query_metadata() {
  * @param string $term     The search term.
  * @param array  $metadata Optional. Additional metadata to save with the query. Default is an
  *                         empty array.
- * @return bool True if the query was saved successfully, false otherwise.
- *
- * @todo Flesh out this function.
  */
 function save_search_query( $term, $metadata = array() ) {
-	return true;
+
+	/**
+	 * Pass the prepared search data off to be saved.
+	 *
+	 * @param string $term     The search term.
+	 * @param array  $metadata Meta data that should be saved with the query.
+	 */
+	do_action( 'mcavoy_save_search_query', $term, $metadata );
 }
