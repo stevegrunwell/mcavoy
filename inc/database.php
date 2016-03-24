@@ -74,3 +74,41 @@ function save_search_to_database( $term, $metadata ) {
 	), array( '%s', '%s', '%s' ) );
 }
 add_action( 'mcavoy_save_search_query', __NAMESPACE__ . '\save_search_to_database', 10, 2 );
+
+/**
+ * Retrieve search queries from the database.
+ *
+ * @global $wpdb
+ *
+ * @param array $args {
+ *   Optional. Overrides for default query arguments.
+ *
+ *   @var int    $limit   The maximum number of (unique) queries to return. Default is 50.
+ *   @var int    $page    The page of results to return. Default is 1.
+ *   @var string $orderby The column results should be ordered by. Default is created_at.
+ *   @var string $order   Either 'asc' or 'desc'. Default is 'desc'.
+ * }
+ * @return array An array of stdClass objects, each one representing a row.
+ */
+function get_search_queries( $args = array() ) {
+	global $wpdb;
+
+	$args  = wp_parse_args( $args, array(
+		'limit'   => 50,
+		'page'    => 1,
+		'orderby' => 'created_at',
+		'order'   => 'desc',
+	) );
+	$table = $wpdb->prefix . MCAVOY_DB_SEARCHES_TABLE;
+	$cols  = array( 'id', 'term', 'metadata', 'created_at' );
+	$sort  = in_array( $args['orderby'], $cols ) ? $args['orderby'] : 'created_at';
+	$order = strtolower( $args['order'] ) === 'asc' ? 'asc' : 'desc';
+
+	// @codingStandardsIgnoreStart
+	return $wpdb->get_results( $wpdb->prepare(
+		"SELECT * FROM $table ORDER BY $sort $order LIMIT %d,%d",
+		abs( ( $args['page'] - 1 ) * $args['limit'] ),
+		$args['limit']
+	) );
+	// @codingStandardsIgnoreEnd
+}
