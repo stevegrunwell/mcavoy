@@ -35,11 +35,13 @@ add_action( 'template_redirect', __NAMESPACE__ . '\capture_search_query' );
 function prepare_query_metadata() {
 	global $wp_query;
 
+	$user = wp_get_current_user();
 	$data = array(
-		'ip_address' => sanitize_text_field( $_SERVER['REMOTE_ADDR'] ),
-		'referrer'   => wp_get_referer(),
-		'user_agent' => sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ),
-		'results'    => $wp_query->found_posts,
+		'ip_address'   => sanitize_text_field( $_SERVER['REMOTE_ADDR'] ),
+		'referrer'     => wp_get_referer(),
+		'user_agent'   => sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ),
+		'results'      => $wp_query->found_posts,
+		'current_user' => 0 === $user->ID ? null : $user->user_login,
 	);
 
 	/**

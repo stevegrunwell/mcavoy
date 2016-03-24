@@ -93,14 +93,24 @@ class LoggerTest extends TestCase {
 			'HTTP_USER_AGENT' => 'Chrome, I guess?',
 		);
 		$expected = array(
-			'ip_address' => $server['REMOTE_ADDR'],
-			'referrer'   => 'http://example.com',
-			'user_agent' => $server['HTTP_USER_AGENT'],
-			'results'    => 5,
+			'ip_address'   => $server['REMOTE_ADDR'],
+			'referrer'     => 'http://example.com',
+			'user_agent'   => $server['HTTP_USER_AGENT'],
+			'results'      => 5,
+			'current_user' => 'foobar',
 		);
 		$backup   = $_SERVER;
 		$wp_query = new \stdClass;
 		$wp_query->found_posts = 5;
+
+		$user = new \stdClass;
+		$user->ID         = 1;
+		$user->user_login = 'foobar';
+
+		M::wpFunction( 'wp_get_current_user', array(
+			'times'  => 1,
+			'return' => $user,
+		) );
 
 		M::wpFunction( 'wp_get_referer', array(
 			'times'  => 1,
@@ -129,6 +139,41 @@ class LoggerTest extends TestCase {
 
 		// Restore our backup of the superglobal.
 		$_SERVER = $backup;
+		$wp_query = null;
+	}
+
+	public function test_prepare_query_metadata_checks_user_id() {
+		global $wp_query;
+
+		$server   = array(
+			'REMOTE_ADDR'     => '',
+			'HTTP_USER_AGENT' => '',
+		);
+		$backup   = $_SERVER;
+		$wp_query = new \stdClass;
+		$wp_query->found_posts = 5;
+
+		$user = new \stdClass;
+		$user->ID         = 0;
+
+		M::wpFunction( 'wp_get_current_user', array(
+			'times'  => 1,
+			'return' => $user,
+		) );
+
+		M::wpFunction( 'wp_get_referer', array(
+			'return' => 'http://example.com',
+		) );
+
+		M::wpPassthruFunction( 'sanitize_text_field' );
+
+		// Add our values to the $_SERVER superglobal.
+		$_SERVER = array_merge( $_SERVER, $server );
+
+		$response = prepare_query_metadata();
+		$this->assertEmpty( $response['current_user'] );
+
+		$_SERVER  = $backup;
 		$wp_query = null;
 	}
 
