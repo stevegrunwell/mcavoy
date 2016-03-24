@@ -18,3 +18,11 @@ namespace McAvoy;
 
 require_once __DIR__ . '/inc/database.php';
 require_once __DIR__ . '/inc/logger.php';
+
+/**
+ * Procedure to run when the plugin is first activated.
+ */
+function activate_plugin() {
+	create_database_table();
+}
+register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_plugin' );
