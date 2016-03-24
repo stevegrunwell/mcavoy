@@ -120,4 +120,13 @@ class LoggerTest extends TestCase {
 		$_SERVER = $backup;
 	}
 
+	public function test_save_search_query() {
+		$term = uniqid();
+		$meta = array( uniqid() );
+
+		M::expectAction( 'mcavoy_save_search_query', $term, $meta );
+
+		save_search_query( $term, $meta );
+	}
+
 }
