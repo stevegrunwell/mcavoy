@@ -37,6 +37,7 @@ function prepare_query_metadata() {
 
 	$data = array(
 		'ip_address' => sanitize_text_field( $_SERVER['REMOTE_ADDR'] ),
+		'referrer'   => wp_get_referer(),
 		'user_agent' => sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ),
 		'results'    => $wp_query->found_posts,
 	);

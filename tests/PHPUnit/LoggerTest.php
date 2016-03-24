@@ -94,12 +94,18 @@ class LoggerTest extends TestCase {
 		);
 		$expected = array(
 			'ip_address' => $server['REMOTE_ADDR'],
+			'referrer'   => 'http://example.com',
 			'user_agent' => $server['HTTP_USER_AGENT'],
 			'results'    => 5,
 		);
 		$backup   = $_SERVER;
 		$wp_query = new \stdClass;
 		$wp_query->found_posts = 5;
+
+		M::wpFunction( 'wp_get_referer', array(
+			'times'  => 1,
+			'return' => 'http://example.com',
+		) );
 
 		M::wpPassthruFunction( 'sanitize_text_field', array(
 			'times' => 1,
