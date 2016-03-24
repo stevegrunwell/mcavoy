@@ -27,9 +27,8 @@ add_action( 'admin_menu', __NAMESPACE__ . '\register_menu_page' );
  * Generate the content for the "Site Searches" page.
  */
 function search_page_callback() {
-	$logger      = get_logger();
-	$queries     = $logger->get_queries();
-	$date_format = get_option( 'links_updated_date_format' );
+	$table = new ListTable;
+	$table->prepare_items();
 ?>
 
 	<div class="wrap">
@@ -41,36 +40,8 @@ function search_page_callback() {
 			get_bloginfo( 'name' )
 		) ); ?></p>
 
-		<?php if ( empty( $queries ) ) : ?>
+		<?php $table->display(); ?>
 
-			<p class="no-items"><?php esc_html_e( 'No matching queries were found', 'mcavoy' ); ?></p>
-
-		<?php else : ?>
-
-			<table class="wp-list-table widefat striped">
-				<thead>
-					<tr>
-						<th><?php echo esc_html( _x( 'Date', 'table column header', 'mcavoy' ) ); ?></th>
-						<th><?php echo esc_html( _x( 'Search query', 'table column header', 'mcavoy' ) ); ?></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ( $queries as $query ) : ?>
-
-						<tr>
-							<td>
-								<?php echo esc_html( date_i18n( $date_format, strtotime( $query->created_at ) ) ); ?>
-							</td>
-							<td>
-								<?php echo esc_html( $query->term ); ?>
-							</td>
-						</tr>
-
-					<?php endforeach; ?>
-				</tbody>
-			</table>
-
-		<?php endif; ?>
 	</div>
 
 <?php

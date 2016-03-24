@@ -18,6 +18,7 @@ namespace McAvoy;
 
 require_once __DIR__ . '/inc/admin.php';
 require_once __DIR__ . '/inc/core.php';
+require_once __DIR__ . '/inc/class-list-table.php';
 
 // Loggers.
 require_once __DIR__ . '/inc/class-logger.php';
