@@ -49,9 +49,28 @@ function drop_database_table() {
 
 	$wpdb->query( $wpdb->prepare(
 		'DROP TABLE IF_EXISTS %s;',
-		$wpdb->prefix . 'mcavoy_searches'
+		$wpdb->prefix . MCAVOY_DB_SEARCHES_TABLE
 	) );
 
 	// Remove the database version from the options table.
 	delete_option( 'mcavoy_db_version' );
 }
+
+/**
+ * Save a search query to the database.
+ *
+ * @global $wpdb
+ *
+ * @param string $term     The search term.
+ * @param array  $metadata Meta data that should be saved with the query.
+ */
+function save_search_to_database( $term, $metadata ) {
+	global $wpdb;
+
+	$wpdb->insert( $wpdb->prefix . MCAVOY_DB_SEARCHES_TABLE, array(
+		'term'     => $term,
+		'metadata' => wp_json_encode( $metadata ),
+		'created_at' => current_time( 'mysql', true ),
+	), array( '%s', '%s', '%s' ) );
+}
+add_action( 'mcavoy_save_search_query', __NAMESPACE__ . '\save_search_to_database', 10, 2 );
