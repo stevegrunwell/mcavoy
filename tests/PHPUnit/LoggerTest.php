@@ -86,6 +86,8 @@ class LoggerTest extends TestCase {
 
 
 	public function test_prepare_query_metadata() {
+		global $wp_query;
+
 		$server   = array(
 			'REMOTE_ADDR'     => '192.168.1.1',
 			'HTTP_USER_AGENT' => 'Chrome, I guess?',
@@ -93,8 +95,11 @@ class LoggerTest extends TestCase {
 		$expected = array(
 			'ip_address' => $server['REMOTE_ADDR'],
 			'user_agent' => $server['HTTP_USER_AGENT'],
+			'results'    => 5,
 		);
 		$backup   = $_SERVER;
+		$wp_query = new \stdClass;
+		$wp_query->found_posts = 5;
 
 		M::wpPassthruFunction( 'sanitize_text_field', array(
 			'times' => 1,
@@ -118,6 +123,7 @@ class LoggerTest extends TestCase {
 
 		// Restore our backup of the superglobal.
 		$_SERVER = $backup;
+		$wp_query = null;
 	}
 
 	public function test_save_search_query() {

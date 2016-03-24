@@ -28,12 +28,17 @@ add_action( 'template_redirect', __NAMESPACE__ . '\capture_search_query' );
 /**
  * Prepare meta data about a query that should be saved.
  *
+ * @global $wp_query
+ *
  * @return array An array of meta data.
  */
 function prepare_query_metadata() {
+	global $wp_query;
+
 	$data = array(
 		'ip_address' => sanitize_text_field( $_SERVER['REMOTE_ADDR'] ),
 		'user_agent' => sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ),
+		'results'    => $wp_query->found_posts,
 	);
 
 	/**
