@@ -17,8 +17,11 @@
 namespace McAvoy;
 
 require_once __DIR__ . '/inc/admin.php';
-require_once __DIR__ . '/inc/database.php';
 require_once __DIR__ . '/inc/logger.php';
+
+// Loggers.
+require_once __DIR__ . '/inc/class-logger.php';
+require_once __DIR__ . '/inc/loggers/database.php';
 
 /**
  * Procedure to run when the plugin is first activated.
