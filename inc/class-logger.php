@@ -19,9 +19,16 @@ abstract class Logger {
 	public function activate() {}
 
 	/**
-	 * Retrieve search queries.
+	 * Initialize this logger.
 	 *
-	 * @global $wpdb
+	 * This method should call any internal methods necessary to prepare this logger.
+	 */
+	public function init() {
+		$this->add_hooks();
+	}
+
+	/**
+	 * Retrieve search queries.
 	 *
 	 * @param array $args Arguments to override the query defaults. For a full list, please
 	 *                    see Logger::get_args().
@@ -32,12 +39,17 @@ abstract class Logger {
 	/**
 	 * Save a search query.
 	 *
-	 * @global $wpdb
-	 *
 	 * @param string $term     The search term.
 	 * @param array  $metadata Meta data that should be saved with the query.
 	 */
 	abstract public function save_query( $term, $metadata );
+
+	/**
+	 * Hook this logger into WordPress.
+	 */
+	protected function add_hooks() {
+		add_action( 'mcavoy_save_search_query', array( $this, 'save_query' ), 10, 2 );
+	}
 
 	/**
 	 * Retrieve all possible parameters for displaying search terms.
