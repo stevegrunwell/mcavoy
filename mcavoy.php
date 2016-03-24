@@ -16,6 +16,7 @@
 
 namespace McAvoy;
 
+require_once __DIR__ . '/inc/admin.php';
 require_once __DIR__ . '/inc/database.php';
 require_once __DIR__ . '/inc/logger.php';
 
