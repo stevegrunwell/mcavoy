@@ -97,11 +97,7 @@ class DatabaseTest extends McAvoy\TestCase {
 		$wpdb->prefix = 'wp_';
 		$wpdb->shouldReceive( 'query' )
 			->once()
-			->with( 'SQL' );
-		$wpdb->shouldReceive( 'prepare' )
-			->once()
-			->with( 'DROP TABLE IF_EXISTS %s;', 'wp_mcavoy_searches' )
-			->andReturn( 'SQL' );
+			->with( 'DROP TABLE IF_EXISTS wp_mcavoy_searches' );
 
 		M::wpFunction( 'delete_option', array(
 			'times'  => 1,

@@ -16,6 +16,8 @@
 
 namespace McAvoy;
 
+define( 'MCAVOY_VERSION', '0.1.0' );
+
 require_once __DIR__ . '/inc/admin.php';
 require_once __DIR__ . '/inc/core.php';
 require_once __DIR__ . '/inc/class-list-table.php';

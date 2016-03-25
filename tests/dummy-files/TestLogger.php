@@ -10,6 +10,10 @@ namespace McAvoy\Loggers;
 
 class TestLogger extends Logger {
 
+	public function delete_queries() {
+
+	}
+
 	public function get_queries( $args = array() ) {
 
 	}

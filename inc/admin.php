@@ -27,6 +27,16 @@ add_action( 'admin_menu', __NAMESPACE__ . '\register_menu_page' );
  * Generate the content for the "Site Searches" page.
  */
 function search_page_callback() {
+	if ( isset( $_POST['mcavoy-nonce'] ) && wp_verify_nonce( $_POST['mcavoy-nonce'], 'delete-queries' ) ) {
+		$logger = get_logger();
+		$logger->delete_queries();
+
+		printf(
+			'<div class="notice notice-success is-dismissable"><p>%s</p></div>',
+			esc_html__( 'Saved queries have been deleted!', 'mcavoy' )
+		);
+	}
+
 	$table = new ListTable;
 	$table->prepare_items();
 ?>
@@ -40,7 +50,15 @@ function search_page_callback() {
 			get_bloginfo( 'name' )
 		) ); ?></p>
 
+
 		<?php $table->display(); ?>
+
+		<form method="POST" id="mcavoy-delete-queries">
+			<h2><?php esc_html_e( 'Delete saved queries?', 'macavoy' ); ?></h2>
+			<p><?php esc_html_e( 'Remove all of the saved search queries?', 'mcavoy' ); ?></p>
+			<?php wp_nonce_field( 'delete-queries', 'mcavoy-nonce' ); ?>
+			<input type="submit" class="button delete" value="<?php esc_attr_e( 'Delete queries', 'mcavoy' ); ?>" />
+		</form>
 
 	</div>
 

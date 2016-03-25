@@ -19,6 +19,11 @@ abstract class Logger {
 	public function activate() {}
 
 	/**
+	 * Flush the saved queries.
+	 */
+	abstract public function delete_queries();
+
+	/**
 	 * Initialize this logger.
 	 *
 	 * This method should call any internal methods necessary to prepare this logger.

@@ -33,6 +33,21 @@ class DatabaseLogger extends Logger {
 	}
 
 	/**
+	 * Flush the saved queries.
+	 *
+	 * @global $wpdb
+	 */
+	public function delete_queries() {
+		global $wpdb;
+
+		$table = $wpdb->prefix . self::SEARCHES_TABLE;
+
+		// @codingStandardsIgnoreStart
+		$wpdb->query( "TRUNCATE TABLE $table" );
+		// @codingStandardsIgnoreEnd
+	}
+
+	/**
 	 * Retrieve search queries.
 	 *
 	 * @global $wpdb
@@ -72,7 +87,7 @@ class DatabaseLogger extends Logger {
 	 * @param string $term     The search term.
 	 * @param array  $metadata Meta data that should be saved with the query.
 	 */
-	function save_query( $term, $metadata ) {
+	public function save_query( $term, $metadata ) {
 		global $wpdb;
 
 		$wpdb->insert( $wpdb->prefix . self::SEARCHES_TABLE, array(
@@ -118,10 +133,11 @@ class DatabaseLogger extends Logger {
 	protected function drop_database_table() {
 		global $wpdb;
 
-		$wpdb->query( $wpdb->prepare(
-			'DROP TABLE IF_EXISTS %s;',
-			$wpdb->prefix . self::SEARCHES_TABLE
-		) );
+		$table = $wpdb->prefix . self::SEARCHES_TABLE;
+
+		// @codingStandardsIgnoreStart
+		$wpdb->query( "DROP TABLE IF_EXISTS $table" );
+		// @codingStandardsIgnoreEnd
 
 		// Remove the database version from the options table.
 		delete_option( 'mcavoy_db_version' );
