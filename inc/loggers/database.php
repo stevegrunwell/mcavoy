@@ -37,7 +37,7 @@ class DatabaseLogger extends Logger {
 	 *
 	 * @param array $args Arguments to override the query defaults. For a full list, please
 	 *                    see Logger::get_args().
-	 * @return array An array of stdClass objects, each one representing a row.
+	 * @return McAvoy_Query A McAvoy_Query object representing the query.
 	 */
 	public function get_queries( $args = array() ) {
 		global $wpdb;

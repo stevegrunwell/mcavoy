@@ -11,7 +11,7 @@ namespace McAvoy;
 /**
  * Represents a query returned by a McAvoy Logger class.
  */
-class McAvoyQuery {
+class McAvoy_Query {
 
 	/**
 	 * The total number of results found.

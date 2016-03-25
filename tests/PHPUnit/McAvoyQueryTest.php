@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the McAvoyQuery class.
+ * Tests for the McAvoy_Query class.
  *
  * @package McAvoy
  * @author  Steve Grunwell
@@ -19,7 +19,7 @@ class McAvoyQueryTest extends TestCase {
 
 	public function test__construct() {
 		$items    = array( 'foo', 'bar' );
-		$instance = new McAvoyQuery( $items, array( 'args' ), 5 );
+		$instance = new McAvoy_Query( $items, array( 'args' ), 5 );
 
 		$items_prop = new ReflectionProperty( $instance, 'items' );
 		$items_prop->setAccessible( true );
@@ -35,7 +35,7 @@ class McAvoyQueryTest extends TestCase {
 	}
 
 	public function test__construct_sets_default_found() {
-		$instance = new McAvoyQuery( array( 'foo', 'bar' ) );
+		$instance = new McAvoy_Query( array( 'foo', 'bar' ) );
 
 		$found_prop = new ReflectionProperty( $instance, 'found' );
 		$found_prop->setAccessible( true );
