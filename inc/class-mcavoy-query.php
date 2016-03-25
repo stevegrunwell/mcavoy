@@ -28,6 +28,13 @@ class McAvoy_Query {
 	protected $items = array();
 
 	/**
+	 * Cached pagination arguments.
+	 *
+	 * @var array
+	 */
+	protected $pagination_args = array();
+
+	/**
 	 * The query args that were passed to the Logger.
 	 *
 	 * @var array
@@ -52,5 +59,25 @@ class McAvoy_Query {
 	 */
 	public function get_items() {
 		return (array) $this->items;
+	}
+
+	/**
+	 * Get information related to pagination.
+	 *
+	 * @return array An array with keys 'total_items', 'per_page', and 'total_pages', compatible with
+	 *               WP_List_Table's set_pagination_args().
+	 */
+	public function get_pagination_args() {
+		if ( ! empty( $this->pagination_args ) ) {
+			return $this->pagination_args;
+		}
+
+		$this->pagination_args = array(
+			'total_items' => (int) $this->found,
+			'per_page'    => $this->query_args['limit'],
+			'total_pages' => ceil( $this->found / $this->query_args['limit'] ),
+		);
+
+		return $this->pagination_args;
 	}
 }

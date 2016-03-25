@@ -47,12 +47,14 @@ class DatabaseLogger extends Logger {
 		$args  = $this->get_args( $args );
 		$table = $wpdb->prefix . self::SEARCHES_TABLE;
 		$cols  = array( 'id', 'term', 'metadata', 'created_at' );
-		$sort  = in_array( $args['orderby'], $cols ) ? $args['orderby'] : 'created_at';
-		$order = strtolower( $args['order'] ) === 'asc' ? 'asc' : 'desc';
 
 		// @codingStandardsIgnoreStart
-		$items = $wpdb->get_results( $wpdb->prepare(
-			"SELECT * FROM $table ORDER BY $sort $order LIMIT %d,%d",
+		// $wpdb->prepare() would over-escape our values, hence the sprintf() instead.
+		$items = $wpdb->get_results( sprintf(
+			'SELECT * FROM %s ORDER BY %s %s LIMIT %d,%d',
+			$table,
+			in_array( $args['orderby'], $cols ) ? $args['orderby'] : 'created_at',
+			strtolower( $args['order'] ) === 'asc' ? 'asc' : 'desc',
 			abs( ( $args['page'] - 1 ) * $args['limit'] ),
 			$args['limit']
 		) );

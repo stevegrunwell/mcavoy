@@ -86,6 +86,7 @@ class ListTable extends \WP_List_Table {
 		$sortable = $this->get_sortable_columns();
 		$orderby  = null;
 		$order    = null;
+		$page     = 1;
 
 		// Build column headers (all, hidden, sortable).
 		$this->_column_headers = array(
@@ -103,11 +104,17 @@ class ListTable extends \WP_List_Table {
 			$order = $_GET['order'];
 		}
 
+		if ( isset( $_GET['paged'] ) ) {
+			$page = absint( $_GET['paged'] );
+		}
+
 		// Get the items from the logger.
 		$queries     = $logger->get_queries( array(
 			'orderby' => $orderby,
 			'order'   => $order,
+			'page'    => $page,
 		) );
 		$this->items = $queries->get_items();
+		$this->set_pagination_args( $queries->get_pagination_args() );
 	}
 }
