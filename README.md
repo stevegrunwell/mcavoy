@@ -29,16 +29,16 @@ function save_search_query_to_firebase( $term, $metadata ) {
 add_action( 'mcavoy_save_search_query', 'save_search_query_to_firebase', 10, 2 );
 ```
 
-To prevent logging to the WordPress database, simply unhook the corresponding action:
+### What's all this about requiring at least PHP 5.3?
 
-```php
-remove_action( 'mcavoy_save_search_query', 'McAvoy\save_search_to_database', 10 );
-```
+McAvoy has been written using [PHP Namespaces](http://php.net/manual/en/language.namespaces.php), which is super common in the larger PHP community but rather rare in WordPress (as WordPress strives to support as many people as possible). For most users, this minimum requirement shouldn't be of any concern (after all, [security patches stopped being delivered for PHP 5.3 in mid-2014](http://php.net/supported-versions.php)).
+
+If you **are** affected, however, I urge you to *please* upgrade your server (or change hosts) as soon as humanely possible. Besides the obvious benefits of having current security patches, newer versions of PHP are more performant than ever.
 
 
 ### Who the heck is McAvoy?
 
-This plugin was designed to answer five questions about your site's audience, specifically those searching on it: who, what, when, where, and why. Those even somewhat familiar with journalism probably recognize the importance of those five questions, and as such I found it fitting to name the plugin after a journalist. [Edward R Murrow](https://en.wikipedia.org/wiki/Edward_R._Murrow), [Walter Cronkite](https://en.wikipedia.org/wiki/Walter_Cronkite), and [Dan Rather](https://en.wikipedia.org/wiki/Dan_Rather) were all contenders, but ultimately [ACN Anchor Will McAvoy](https://en.wikipedia.org/wiki/The_Newsroom_(U.S._TV_series)) won out.
+This plugin was designed to answer five questions about your site's audience, specifically those searching on it: "who", "what", "when", "where", and "why." Those even somewhat familiar with journalism probably recognize the importance of those five questions, and as such I found it fitting to name the plugin after a journalist. [Edward R Murrow](https://en.wikipedia.org/wiki/Edward_R._Murrow), [Walter Cronkite](https://en.wikipedia.org/wiki/Walter_Cronkite), and [Dan Rather](https://en.wikipedia.org/wiki/Dan_Rather) were all contenders, but ultimately [ACN Anchor Will McAvoy](https://en.wikipedia.org/wiki/The_Newsroom_(U.S._TV_series)) won out.
 
 ![Will McAvoy (Jeff Daniels) proclaiming that he will "single-handedly fix the internet!"](http://images.complex.com/complex/image/upload/qmizflfilz5xi04nd9rt.gif)
 
