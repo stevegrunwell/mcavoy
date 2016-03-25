@@ -8,6 +8,8 @@
 
 namespace McAvoy\Loggers;
 
+use McAvoy;
+
 /**
  * Database logger definition.
  */
@@ -49,12 +51,15 @@ class DatabaseLogger extends Logger {
 		$order = strtolower( $args['order'] ) === 'asc' ? 'asc' : 'desc';
 
 		// @codingStandardsIgnoreStart
-		return $wpdb->get_results( $wpdb->prepare(
+		$items = $wpdb->get_results( $wpdb->prepare(
 			"SELECT * FROM $table ORDER BY $sort $order LIMIT %d,%d",
 			abs( ( $args['page'] - 1 ) * $args['limit'] ),
 			$args['limit']
 		) );
+		$found = $wpdb->get_var( "SELECT COUNT(id) FROM $table" );
 		// @codingStandardsIgnoreEnd
+
+		return new McAvoy\McAvoy_Query( $items, $args, $found );
 	}
 
 	/**

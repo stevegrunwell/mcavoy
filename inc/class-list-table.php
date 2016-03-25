@@ -104,9 +104,10 @@ class ListTable extends \WP_List_Table {
 		}
 
 		// Get the items from the logger.
-		$this->items = $logger->get_queries( array(
+		$queries     = $logger->get_queries( array(
 			'orderby' => $orderby,
 			'order'   => $order,
 		) );
+		$this->items = $queries->get_items();
 	}
 }
