@@ -19,11 +19,15 @@ class McAvoyQueryTest extends TestCase {
 
 	public function test__construct() {
 		$items    = array( 'foo', 'bar' );
-		$instance = new McAvoyQuery( $items, 5 );
+		$instance = new McAvoyQuery( $items, array( 'args' ), 5 );
 
 		$items_prop = new ReflectionProperty( $instance, 'items' );
 		$items_prop->setAccessible( true );
 		$this->assertEquals( $items, $items_prop->getValue( $instance ) );
+
+		$args_prop = new ReflectionProperty( $instance, 'query_args' );
+		$args_prop->setAccessible( true );
+		$this->assertEquals( array( 'args' ), $args_prop->getValue( $instance ) );
 
 		$found_prop = new ReflectionProperty( $instance, 'found' );
 		$found_prop->setAccessible( true );
