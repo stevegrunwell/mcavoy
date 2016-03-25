@@ -26,6 +26,29 @@ function capture_search_query() {
 add_action( 'template_redirect', __NAMESPACE__ . '\capture_search_query' );
 
 /**
+ * Enqueue static assets used by the plugin.
+ */
+function enqueue_assets() {
+	wp_register_script(
+		'mcavoy-admin',
+		plugins_url( 'assets/js/admin.min.js', __DIR__ ),
+		array( 'jquery' ),
+		MCAVOY_VERSION,
+		true
+	);
+	wp_localize_script( 'mcavoy-admin', 'McAvoy', array(
+		'i18n' => array(
+			'deleteQueriesConfig' => esc_html__( 'Are you sure you want to delete the saved queries? This cannot be undone.', 'mcavoy' ),
+		),
+	) );
+
+	if ( 'tools_page_mcavoy-searches' === get_current_screen()->id ) {
+		wp_enqueue_script( 'mcavoy-admin' );
+	}
+}
+add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
+
+/**
  * Get the currently-active logger.
  *
  * @global $mcavoy_logger
