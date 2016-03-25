@@ -8,6 +8,8 @@
 
 namespace McAvoy\Loggers;
 
+use McAvoy;
+
 /**
  * Database logger definition.
  */
@@ -37,7 +39,7 @@ class DatabaseLogger extends Logger {
 	 *
 	 * @param array $args Arguments to override the query defaults. For a full list, please
 	 *                    see Logger::get_args().
-	 * @return array An array of stdClass objects, each one representing a row.
+	 * @return McAvoy_Query A McAvoy_Query object representing the query.
 	 */
 	public function get_queries( $args = array() ) {
 		global $wpdb;
@@ -45,16 +47,21 @@ class DatabaseLogger extends Logger {
 		$args  = $this->get_args( $args );
 		$table = $wpdb->prefix . self::SEARCHES_TABLE;
 		$cols  = array( 'id', 'term', 'metadata', 'created_at' );
-		$sort  = in_array( $args['orderby'], $cols ) ? $args['orderby'] : 'created_at';
-		$order = strtolower( $args['order'] ) === 'asc' ? 'asc' : 'desc';
 
 		// @codingStandardsIgnoreStart
-		return $wpdb->get_results( $wpdb->prepare(
-			"SELECT * FROM $table ORDER BY $sort $order LIMIT %d,%d",
+		// $wpdb->prepare() would over-escape our values, hence the sprintf() instead.
+		$items = $wpdb->get_results( sprintf(
+			'SELECT * FROM %s ORDER BY %s %s LIMIT %d,%d',
+			$table,
+			in_array( $args['orderby'], $cols ) ? $args['orderby'] : 'created_at',
+			strtolower( $args['order'] ) === 'asc' ? 'asc' : 'desc',
 			abs( ( $args['page'] - 1 ) * $args['limit'] ),
 			$args['limit']
 		) );
+		$found = $wpdb->get_var( "SELECT COUNT(id) FROM $table" );
 		// @codingStandardsIgnoreEnd
+
+		return new McAvoy\McAvoy_Query( $items, $args, $found );
 	}
 
 	/**
