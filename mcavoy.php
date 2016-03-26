@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: McAvoy
- * Plugin URI:  https://github.com/stevegrunwell/mcavoy
+ * Plugin URI:  https://wordpress.org/plugins/mcavoy
  * Description: Discover what visitors are searching for on your WordPress site.
  * Version:     0.1.0
  * Author:      Steve Grunwell

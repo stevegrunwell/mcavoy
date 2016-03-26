@@ -55,6 +55,10 @@ If you **are** affected, however, I urge you to *please* upgrade your server (or
 
 This plugin was designed to answer five questions about your site's audience, specifically those searching on it: "who", "what", "when", "where", and "why." Those even somewhat familiar with journalism probably recognize the importance of those five questions, and as such I found it fitting to name the plugin after a journalist. [Edward R Murrow](https://en.wikipedia.org/wiki/Edward_R._Murrow), [Walter Cronkite](https://en.wikipedia.org/wiki/Walter_Cronkite), and [Dan Rather](https://en.wikipedia.org/wiki/Dan_Rather) were all contenders, but ultimately [ACN Anchor Will McAvoy](https://en.wikipedia.org/wiki/The_Newsroom_(U.S._TV_series)) won out.
 
+== Screenshots ==
+
+1. A list of recent searches made on a site – judging by the terms, it sounds like someone was hungry!
+
 
 == Changelog ==
 
