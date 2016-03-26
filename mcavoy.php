@@ -19,6 +19,7 @@ namespace McAvoy;
 define( 'MCAVOY_VERSION', '0.1.0' );
 
 require_once __DIR__ . '/inc/admin.php';
+require_once __DIR__ . '/inc/caps.php';
 require_once __DIR__ . '/inc/core.php';
 require_once __DIR__ . '/inc/class-list-table.php';
 require_once __DIR__ . '/inc/class-mcavoy-query.php';
@@ -42,6 +43,11 @@ add_action( 'init', __NAMESPACE__ . '\init' );
 function activate_plugin() {
 	$logger = get_logger();
 	$logger->activate();
+
+	/**
+	 * Trigger custom capabilities required by the plugin to be registered.
+	 */
+	do_action( 'mcavoy_register_caps' );
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_plugin' );
 
