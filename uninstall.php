@@ -9,6 +9,7 @@
 namespace McAvoy;
 
 require_once __DIR__ . '/inc/caps.php';
+require_once __DIR__ . '/inc/core.php';
 require_once __DIR__ . '/inc/loggers/autoload.php';
 
 // Verify that we're actually uninstalling the plugin.
