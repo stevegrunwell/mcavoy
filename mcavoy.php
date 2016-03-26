@@ -23,10 +23,7 @@ require_once __DIR__ . '/inc/caps.php';
 require_once __DIR__ . '/inc/core.php';
 require_once __DIR__ . '/inc/class-list-table.php';
 require_once __DIR__ . '/inc/class-mcavoy-query.php';
-
-// Loggers.
-require_once __DIR__ . '/inc/class-logger.php';
-require_once __DIR__ . '/inc/loggers/database.php';
+require_once __DIR__ . '/inc/loggers/autoload.php';
 
 /**
  * Initialize the plugin.
