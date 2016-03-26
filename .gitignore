@@ -1,2 +1,10 @@
+# Compiled assets
+assets/js/*.js
+assets/js/*.js.map
+
+# Vendor dependencies
 node_modules
 vendor
+
+# Build directory
+dist

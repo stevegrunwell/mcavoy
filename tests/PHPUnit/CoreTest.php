@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the plugin's logger.
+ * Tests for the plugin's core functionality.
  *
  * @package McAvoy
  * @author  Steve Grunwell
@@ -10,14 +10,13 @@ namespace McAvoy;
 
 use WP_Mock as M;
 
-class LoggerTest extends TestCase {
+class CoreTest extends TestCase {
 
 	protected $testFiles = array(
-		'logger.php',
+		'core.php',
 	);
 
 	public function test_capture_search_query() {
-		$this->markTestSkipped( 'Namespace conflicts with WP_Mock that need solving.' );
 		M::wpFunction( 'is_search', array(
 			'times'  => 1,
 			'return' => true,
@@ -39,7 +38,7 @@ class LoggerTest extends TestCase {
 			'return' => array( 'meta', 'data' ),
 		) );
 
-		M::wpFunction( __NAMESPACE__ . '\save_query', array(
+		M::wpFunction( __NAMESPACE__ . '\save_search_query', array(
 			'times'  => 1,
 			'args'   => array( 'foo', array( 'meta', 'data' ) ),
 			'return' => true,
@@ -86,15 +85,36 @@ class LoggerTest extends TestCase {
 
 
 	public function test_prepare_query_metadata() {
+		global $wp_query;
+
 		$server   = array(
 			'REMOTE_ADDR'     => '192.168.1.1',
 			'HTTP_USER_AGENT' => 'Chrome, I guess?',
 		);
 		$expected = array(
-			'ip_address' => $server['REMOTE_ADDR'],
-			'user_agent' => $server['HTTP_USER_AGENT'],
+			'ip_address'   => $server['REMOTE_ADDR'],
+			'referrer'     => 'http://example.com',
+			'user_agent'   => $server['HTTP_USER_AGENT'],
+			'results'      => 5,
+			'current_user' => 'foobar',
 		);
 		$backup   = $_SERVER;
+		$wp_query = new \stdClass;
+		$wp_query->found_posts = 5;
+
+		$user = new \stdClass;
+		$user->ID         = 1;
+		$user->user_login = 'foobar';
+
+		M::wpFunction( 'wp_get_current_user', array(
+			'times'  => 1,
+			'return' => $user,
+		) );
+
+		M::wpFunction( 'wp_get_referer', array(
+			'times'  => 1,
+			'return' => 'http://example.com',
+		) );
 
 		M::wpPassthruFunction( 'sanitize_text_field', array(
 			'times' => 1,
@@ -118,6 +138,42 @@ class LoggerTest extends TestCase {
 
 		// Restore our backup of the superglobal.
 		$_SERVER = $backup;
+		$wp_query = null;
+	}
+
+	public function test_prepare_query_metadata_checks_user_id() {
+		global $wp_query;
+
+		$server   = array(
+			'REMOTE_ADDR'     => '',
+			'HTTP_USER_AGENT' => '',
+		);
+		$backup   = $_SERVER;
+		$wp_query = new \stdClass;
+		$wp_query->found_posts = 5;
+
+		$user = new \stdClass;
+		$user->ID         = 0;
+
+		M::wpFunction( 'wp_get_current_user', array(
+			'times'  => 1,
+			'return' => $user,
+		) );
+
+		M::wpFunction( 'wp_get_referer', array(
+			'return' => 'http://example.com',
+		) );
+
+		M::wpPassthruFunction( 'sanitize_text_field' );
+
+		// Add our values to the $_SERVER superglobal.
+		$_SERVER = array_merge( $_SERVER, $server );
+
+		$response = prepare_query_metadata();
+		$this->assertEmpty( $response['current_user'] );
+
+		$_SERVER  = $backup;
+		$wp_query = null;
 	}
 
 	public function test_save_search_query() {
