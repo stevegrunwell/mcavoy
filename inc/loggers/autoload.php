@@ -8,6 +8,10 @@
  * @author  Steve Grunwell
  */
 
-namespace McAvoy;
+namespace McAvoy\Loggers;
 
+// Load the base Logger class.
+require_once __DIR__ . '/class-logger.php';
+
+// Load the various Loggers.
 require_once __DIR__ . '/database.php';

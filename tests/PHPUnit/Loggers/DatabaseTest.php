@@ -16,7 +16,7 @@ use WP_Mock as M;
 class DatabaseTest extends McAvoy\TestCase {
 
 	protected $testFiles = array(
-		'class-logger.php',
+		'loggers/class-logger.php',
 		'loggers/database.php',
 	);
 
