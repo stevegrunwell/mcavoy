@@ -143,7 +143,7 @@ class DatabaseLogger extends Logger {
 		$table = $wpdb->prefix . self::SEARCHES_TABLE;
 
 		// @codingStandardsIgnoreStart
-		$wpdb->query( "DROP TABLE IF_EXISTS $table" );
+		$wpdb->query( "DROP TABLE IF EXISTS $table" );
 		// @codingStandardsIgnoreEnd
 
 		// Remove the database version from the options table.
