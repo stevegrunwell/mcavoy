@@ -28,7 +28,8 @@ module.exports = function(grunt) {
 					'CHANGELOG.md',
 					'mcavoy.php',
 					'LICENSE.md',
-					'readme.txt'
+					'readme.txt',
+					'uninstall.php'
 				],
 				dest: 'dist/'
 			},
