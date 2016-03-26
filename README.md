@@ -1,4 +1,4 @@
-# McAvoy
+# ![McAvoy banner](plugin-repo-assets/banner-1544x500.png) McAvoy
 
 [![Build Status](https://travis-ci.org/stevegrunwell/mcavoy.svg?branch=master)](https://travis-ci.org/stevegrunwell/mcavoy)
 [![Code Climate](https://codeclimate.com/github/stevegrunwell/mcavoy/badges/gpa.svg)](https://codeclimate.com/github/stevegrunwell/mcavoy)
