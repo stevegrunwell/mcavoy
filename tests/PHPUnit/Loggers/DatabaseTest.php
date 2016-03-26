@@ -20,6 +20,15 @@ class DatabaseTest extends McAvoy\TestCase {
 		'loggers/database.php',
 	);
 
+	public function test_activate() {
+		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+		$instance->shouldReceive( 'create_database_table' )->once();
+
+		$instance->activate();
+	}
+
 	public function test_save_query() {
 		global $wpdb;
 
@@ -53,6 +62,15 @@ class DatabaseTest extends McAvoy\TestCase {
 		$method->invoke( $instance, 'term', $meta );
 
 		$wpdb = null;
+	}
+
+	public function test_uninstall() {
+		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+		$instance->shouldReceive( 'drop_database_table' )->once();
+
+		$instance->uninstall();
 	}
 
 	public function test_create_database_table() {

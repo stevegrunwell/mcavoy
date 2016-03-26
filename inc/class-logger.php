@@ -50,6 +50,11 @@ abstract class Logger {
 	abstract public function save_query( $term, $metadata );
 
 	/**
+	 * Operations to run when the plugin is uninstalled.
+	 */
+	public function uninstall() {}
+
+	/**
 	 * Hook this logger into WordPress.
 	 */
 	protected function add_hooks() {
