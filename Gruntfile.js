@@ -17,6 +17,23 @@ module.exports = function(grunt) {
 			}
 		},
 
+		copy: {
+			main: {
+				src: [
+					'assets/**',
+					'!assets/*/src/**',
+					'!assets/*/src',
+					'inc/**',
+					'languages/*',
+					'CHANGELOG.md',
+					'mcavoy.php',
+					'LICENSE.md',
+					'readme.txt'
+				],
+				dest: 'dist/'
+			},
+		},
+
 		makepot: {
 			target: {
 				options: {
@@ -32,8 +49,11 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-wp-i18n');
 
 	grunt.registerTask('i18n', ['makepot']);
-	grunt.registerTask('default', ['jshint', 'uglify']);
+	grunt.registerTask('scripts', ['jshint', 'uglify']);
+	grunt.registerTask('build', ['scripts', 'i18n', 'copy']);
+	grunt.registerTask('default', ['scripts']);
 };

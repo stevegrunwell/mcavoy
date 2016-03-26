@@ -25,10 +25,12 @@ As compiled assets are **not** kept under version control, you will need to buil
 $ grunt
 ```
 
+### Building a new release
+
+New releases are built via Grunt; running `grunt build` will create a new `dist/` directory with the distributable version of the plugin.
+
 
 ## Branching strategy
-
-> **Note:** This workflow will take effect after the first public release of the plugin.
 
 This project follows [the Gitflow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow):
 
