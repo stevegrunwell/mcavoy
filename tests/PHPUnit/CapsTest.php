@@ -55,4 +55,34 @@ class CapsTest extends McAvoy\TestCase {
 		register_caps();
 	}
 
+	public function test_deregister_caps() {
+		$caps = array(
+			'foo' => array( 'administrator', 'editor' ),
+			'bar' => array( 'administrator' ),
+		);
+
+		$role = Mockery::mock( 'WP_Role' )->makePartial();
+		$role->shouldReceive( 'remove_cap' )->times( 2 )->with( 'mcavoy_foo' );
+		$role->shouldReceive( 'remove_cap' )->once()->with( 'mcavoy_bar' );
+
+		M::wpFunction( __NAMESPACE__ . '\get_caps', array(
+			'times'  => 1,
+			'return' => $caps,
+		) );
+
+		M::wpFunction( 'get_role', array(
+			'return' => $role,
+		) );
+
+		M::onFilter( 'mcavoy_foo_roles' )
+			->with( $caps['foo'], 'foo' )
+			->reply( $caps['foo'] );
+
+		M::onFilter( 'mcavoy_bar_roles' )
+			->with( $caps['bar'], 'bar' )
+			->reply( $caps['bar'] );
+
+		deregister_caps();
+	}
+
 }
