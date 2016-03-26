@@ -22,6 +22,7 @@ if ( ! file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/test-tools/TestCase.php';
+require_once __DIR__ . '/dummy-files/ListTable.php';
 
 WP_Mock::setUsePatchwork( true );
 WP_Mock::bootstrap();

@@ -8,6 +8,8 @@
 
 namespace McAvoy\Admin;
 
+use McAvoy;
+
 /**
  * Register the "Site Searches" page under the Tools heading.
  */
@@ -29,7 +31,7 @@ add_action( 'admin_menu', __NAMESPACE__ . '\register_menu_page' );
 function search_page_callback() {
 	maybe_delete_queries();
 
-	$table = new ListTable;
+	$table = new McAvoy\ListTable;
 	$table->prepare_items();
 ?>
 

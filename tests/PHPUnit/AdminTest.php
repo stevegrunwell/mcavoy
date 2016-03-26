@@ -80,10 +80,3 @@ class AdminTest extends McAvoy\TestCase {
 		$this->assertNotContains( '<form method="POST" id="mcavoy-delete-queries">', $result );
 	}
 }
-
-class ListTable {
-	public function prepare_items() {}
-	public function display() {
-		return 'TABLE!';
-	}
-}
