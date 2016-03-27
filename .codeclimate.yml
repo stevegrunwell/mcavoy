@@ -4,6 +4,8 @@ engines:
     config:
       languages:
       - php
+    exclude_fingerprints:
+      - fd9823136629e6b402bc35e57f6b7cb5 # https://github.com/stevegrunwell/mcavoy/issues/21
   fixme:
     enabled: true
 ratings:
