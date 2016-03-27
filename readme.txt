@@ -18,6 +18,9 @@ Best of all, McAvoy is meant to grow with you, sending search query data anywher
 
 **Notice:** In the interest of writing the best software possible, McAvoy requires a *minimum* of PHP 5.3. For more information, please see the Frequently Asked Questions.
 
+To keep up with the latest developments (or to contribute to ongoing development), please [keep up with McAvoy on GitHub](https://github.com/stevegrunwell/mcavoy)!
+
+
 == Installation ==
 
 1. Upload the plugin files to `/wp-content/plugins/mcavoy` or install the plugin through the WordPress plugins screen directly.
@@ -54,6 +57,7 @@ If you **are** affected, however, I urge you to *please* upgrade your server (or
 = Who the heck is McAvoy? =
 
 This plugin was designed to answer five questions about your site's audience, specifically those searching on it: "who", "what", "when", "where", and "why." Those even somewhat familiar with journalism probably recognize the importance of those five questions, and as such I found it fitting to name the plugin after a journalist. [Edward R Murrow](https://en.wikipedia.org/wiki/Edward_R._Murrow), [Walter Cronkite](https://en.wikipedia.org/wiki/Walter_Cronkite), and [Dan Rather](https://en.wikipedia.org/wiki/Dan_Rather) were all contenders, but ultimately [ACN Anchor Will McAvoy](https://en.wikipedia.org/wiki/The_Newsroom_(U.S._TV_series)) won out.
+
 
 == Screenshots ==
 
