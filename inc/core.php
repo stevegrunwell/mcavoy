@@ -98,16 +98,17 @@ function prepare_query_metadata() {
 /**
  * Save a search query.
  *
- * @param string $term     The search term.
+ * @param string $term     The (unsanitized) search term.
  * @param array  $metadata Optional. Additional metadata to save with the query. Default is an
  *                         empty array.
  */
 function save_search_query( $term, $metadata = array() ) {
+	$term = sanitize_text_field( $term );
 
 	/**
 	 * Pass the prepared search data off to be saved.
 	 *
-	 * @param string $term     The search term.
+	 * @param string $term     The sanitized search term.
 	 * @param array  $metadata Meta data that should be saved with the query.
 	 */
 	do_action( 'mcavoy_save_search_query', $term, $metadata );

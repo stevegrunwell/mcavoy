@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file, according t
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+* Fixed cross-site scripting (XSS) bug where search terms weren't automatically escaped.
+
 
 ## [0.1.0] - 2016-03-27
 
