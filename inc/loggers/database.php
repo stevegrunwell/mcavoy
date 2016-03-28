@@ -98,6 +98,13 @@ class DatabaseLogger extends Logger {
 	}
 
 	/**
+	 * Operations to run when the plugin is uninstalled.
+	 */
+	public function uninstall() {
+		$this->drop_database_table();
+	}
+
+	/**
 	 * Create the custom database table.
 	 *
 	 * @global $wpdb
@@ -136,7 +143,7 @@ class DatabaseLogger extends Logger {
 		$table = $wpdb->prefix . self::SEARCHES_TABLE;
 
 		// @codingStandardsIgnoreStart
-		$wpdb->query( "DROP TABLE IF_EXISTS $table" );
+		$wpdb->query( "DROP TABLE IF EXISTS $table" );
 		// @codingStandardsIgnoreEnd
 
 		// Remove the database version from the options table.

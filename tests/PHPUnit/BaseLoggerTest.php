@@ -13,7 +13,7 @@ use Mockery;
 use ReflectionMethod;
 use WP_Mock as M;
 
-require_once PROJECT . 'class-logger.php';
+require_once PROJECT . 'loggers/class-logger.php';
 require_once ABSPATH . 'TestLogger.php';
 
 class BaseLoggerTest extends McAvoy\TestCase {

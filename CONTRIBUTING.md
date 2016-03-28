@@ -25,10 +25,12 @@ As compiled assets are **not** kept under version control, you will need to buil
 $ grunt
 ```
 
+### Building a new release
+
+New releases are built via Grunt; running `grunt build` will create a new `dist/` directory with the distributable version of the plugin.
+
 
 ## Branching strategy
-
-> **Note:** This workflow will take effect after the first public release of the plugin.
 
 This project follows [the Gitflow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow):
 
@@ -51,3 +53,8 @@ The latest versions of PHPUnit require PHP 5.6 or above, but officially McAvoy a
 ## Unit testing
 
 Unit tests are included with this repository, written using [PHPUnit](https://phpunit.de/), [Mockery](http://docs.mockery.io/en/latest/), and [WP_Mock](https://github.com/10up/wp_mock). Whenever submitting a code-related change, *please* provide a corresponding unit test. Only you can prevent regressions!
+
+
+## Translations
+
+There aren't many translation strings in McAvoy, but I'd still love to see the plugin translated into as many languages as possible. If you're a polyglot, [please consider helping translate McAvoy into as many languages as possible](https://make.wordpress.org/polyglots/)!

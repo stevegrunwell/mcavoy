@@ -17,7 +17,6 @@ class CoreTest extends TestCase {
 	);
 
 	public function test_capture_search_query() {
-		$this->markTestSkipped( 'Namespace conflicts with WP_Mock that need solving.' );
 		M::wpFunction( 'is_search', array(
 			'times'  => 1,
 			'return' => true,
@@ -39,7 +38,7 @@ class CoreTest extends TestCase {
 			'return' => array( 'meta', 'data' ),
 		) );
 
-		M::wpFunction( __NAMESPACE__ . '\save_query', array(
+		M::wpFunction( __NAMESPACE__ . '\save_search_query', array(
 			'times'  => 1,
 			'args'   => array( 'foo', array( 'meta', 'data' ) ),
 			'return' => true,

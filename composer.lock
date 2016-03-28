@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b5da2af09e4b38dac5067cd360e75539",
-    "content-hash": "85360470c7f31d9ce3ad3b1b34e589e5",
+    "hash": "9aacd57ccd912eef4b5efedd65a68535",
+    "content-hash": "269d1e058c6e9fef491081f61d222c0f",
     "packages": [],
     "packages-dev": [
         {
@@ -48,22 +48,27 @@
         },
         {
             "name": "antecedent/patchwork",
-            "version": "1.4.2",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antecedent/patchwork.git",
-                "reference": "f691893db7111eb858f0e4b7b8d4b9c4143848c8"
+                "reference": "e7b7f0104f0602d57c7085f3bf858ba171a81aef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/f691893db7111eb858f0e4b7b8d4b9c4143848c8",
-                "reference": "f691893db7111eb858f0e4b7b8d4b9c4143848c8",
+                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/e7b7f0104f0602d57c7085f3bf858ba171a81aef",
+                "reference": "e7b7f0104f0602d57c7085f3bf858ba171a81aef",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "type": "library",
+            "autoload": {
+                "files": [
+                    "src/QuietBootstrap.php"
+                ]
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -74,7 +79,7 @@
                     "email": "ignas.rudaitis@gmail.com"
                 }
             ],
-            "description": "Method redefinition (monkey-patching) functionality for PHP.",
+            "description": "Monkey-patching for PHP, in PHP.",
             "keywords": [
                 "aop",
                 "aspect",
@@ -84,7 +89,7 @@
                 "runkit",
                 "testing"
             ],
-            "time": "2016-02-22 05:07:12"
+            "time": "2016-01-15 21:23:51"
         },
         {
             "name": "codeclimate/php-test-reporter",
@@ -873,16 +878,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "b90749d8e066e14ffeb9be8d5515d7b0710822f7"
+                "reference": "7c34c9bdde4131b824086457a3145e27dba10ca1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/b90749d8e066e14ffeb9be8d5515d7b0710822f7",
-                "reference": "b90749d8e066e14ffeb9be8d5515d7b0710822f7",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/7c34c9bdde4131b824086457a3145e27dba10ca1",
+                "reference": "7c34c9bdde4131b824086457a3145e27dba10ca1",
                 "shasum": ""
             },
             "require": {
@@ -925,7 +930,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-03-03 16:39:02"
+            "time": "2016-03-24 05:58:25"
         },
         {
             "name": "psr/log",

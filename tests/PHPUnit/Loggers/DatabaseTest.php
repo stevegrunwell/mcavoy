@@ -16,9 +16,18 @@ use WP_Mock as M;
 class DatabaseTest extends McAvoy\TestCase {
 
 	protected $testFiles = array(
-		'class-logger.php',
+		'loggers/class-logger.php',
 		'loggers/database.php',
 	);
+
+	public function test_activate() {
+		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+		$instance->shouldReceive( 'create_database_table' )->once();
+
+		$instance->activate();
+	}
 
 	public function test_save_query() {
 		global $wpdb;
@@ -53,6 +62,15 @@ class DatabaseTest extends McAvoy\TestCase {
 		$method->invoke( $instance, 'term', $meta );
 
 		$wpdb = null;
+	}
+
+	public function test_uninstall() {
+		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+		$instance->shouldReceive( 'drop_database_table' )->once();
+
+		$instance->uninstall();
 	}
 
 	public function test_create_database_table() {
@@ -97,7 +115,7 @@ class DatabaseTest extends McAvoy\TestCase {
 		$wpdb->prefix = 'wp_';
 		$wpdb->shouldReceive( 'query' )
 			->once()
-			->with( 'DROP TABLE IF_EXISTS wp_mcavoy_searches' );
+			->with( 'DROP TABLE IF EXISTS wp_mcavoy_searches' );
 
 		M::wpFunction( 'delete_option', array(
 			'times'  => 1,

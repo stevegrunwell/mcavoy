@@ -1,11 +1,11 @@
-# McAvoy
+# ![McAvoy banner](plugin-repo-assets/banner-1544x500.png) McAvoy
 
 [![Build Status](https://travis-ci.org/stevegrunwell/mcavoy.svg?branch=master)](https://travis-ci.org/stevegrunwell/mcavoy)
 [![Code Climate](https://codeclimate.com/github/stevegrunwell/mcavoy/badges/gpa.svg)](https://codeclimate.com/github/stevegrunwell/mcavoy)
 
 McAvoy is a simple WordPress plugin that logs site searches (and information about the people performing them) so you can get a better sense of what your audience is looking for. Is your navigation unclear? Are people regularly getting lost in your infinitely-scrolling homepage when they're just trying to find the latest news on a topic? McAvoy is there, collecting the facts you need to make informed decisions!
 
-> **Note:** McAvoy is still in a _very_ early state and is likely to change quite rapidly in the near future. Until an official release is tagged, please be **very** careful about depending on any actions, filters, or functions not explicitly documented in this README file!
+Best of all, McAvoy is meant to grow with you, sending search query data anywhere you need to in order to get the most meaningful results.
 
 
 ## Frequently-asked questions
@@ -41,6 +41,12 @@ If you **are** affected, however, I urge you to *please* upgrade your server (or
 This plugin was designed to answer five questions about your site's audience, specifically those searching on it: "who", "what", "when", "where", and "why." Those even somewhat familiar with journalism probably recognize the importance of those five questions, and as such I found it fitting to name the plugin after a journalist. [Edward R Murrow](https://en.wikipedia.org/wiki/Edward_R._Murrow), [Walter Cronkite](https://en.wikipedia.org/wiki/Walter_Cronkite), and [Dan Rather](https://en.wikipedia.org/wiki/Dan_Rather) were all contenders, but ultimately [ACN Anchor Will McAvoy](https://en.wikipedia.org/wiki/The_Newsroom_(U.S._TV_series)) won out.
 
 ![Will McAvoy (Jeff Daniels) proclaiming that he will "single-handedly fix the internet!"](http://images.complex.com/complex/image/upload/qmizflfilz5xi04nd9rt.gif)
+
+
+## Contributing to McAvoy
+
+Suggestions, bug reports, and pull requests for McAvoy are welcome, please [read the project's contribution guidelines](https://github.com/stevegrunwell/mcavoy/blob/develop/CONTRIBUTING.md) to get started!
+
 
 ## License
 
