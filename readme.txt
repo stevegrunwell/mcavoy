@@ -4,7 +4,7 @@ Donate link:       https://stevegrunwell.com/donate
 Tags:              search, query, tracking, site search
 Requires at least: 4.4
 Tested up to:      4.4.2
-Stable tag:        0.1.0
+Stable tag:        0.1.1
 License:           MIT
 License URI:       https://opensource.org/licenses/MIT
 
