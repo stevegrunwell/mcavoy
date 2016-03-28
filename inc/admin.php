@@ -77,7 +77,7 @@ function maybe_delete_queries() {
 		return;
 	}
 
-	$logger = get_logger();
+	$logger = McAvoy\get_logger();
 	$logger->delete_queries();
 
 	printf(
