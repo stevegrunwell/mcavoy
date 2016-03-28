@@ -68,5 +68,15 @@ This plugin was designed to answer five questions about your site's audience, sp
 
 For a complete changelog, please see [McAvoy's GitHub repository](https://github.com/stevegrunwell/mcavoy/blob/master/CHANGELOG.md).
 
+= 0.1.1 =
+* Fixed cross-site scripting (XSS) bug where search terms weren't automatically escaped.
+* Fixed fatal error (`Fatal error: Call to undefined function McAvoy\Admin\get_logger()`) when deleting saved queries that resulted as a side-effect of namespace juggling.
+* Added method access modifiers to the `ListTable` class.
+
 = 0.1.0 =
 * Initial public release.
+
+== Upgrade Notice ==
+
+= 0.1.1 =
+This release fixes a Cross-site Scripting (XSS) vulnerability and fixes a fatal error when trying to delete saved queries and is a recommended upgrade for all users.
