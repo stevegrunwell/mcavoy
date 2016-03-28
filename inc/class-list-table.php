@@ -27,7 +27,7 @@ class ListTable extends \WP_List_Table {
 	/**
 	 * Class constructor.
 	 */
-	function __construct() {
+	public function __construct() {
 		$this->datetime_format = get_option( 'links_updated_date_format' );
 
 		parent::__construct( array(
@@ -40,7 +40,7 @@ class ListTable extends \WP_List_Table {
 	 *
 	 * @return array
 	 */
-	function get_columns() {
+	public function get_columns() {
 		return array(
 			'created_at' => _x( 'Date', 'table column header', 'mcavoy' ),
 			'term'       => _x( 'Search query', 'table column header', 'mcavoy' ),
@@ -53,7 +53,7 @@ class ListTable extends \WP_List_Table {
 	 * @param object $item        The current row's item.
 	 * @param string $column_name The current column name.
 	 */
-	function column_default( $item, $column_name ) {
+	protected function column_default( $item, $column_name ) {
 		switch ( $column_name ) {
 			case 'created_at':
 				return date_i18n(
@@ -71,7 +71,7 @@ class ListTable extends \WP_List_Table {
 	 *
 	 * @return array Array of sortable columns.
 	 */
-	function get_sortable_columns() {
+	protected function get_sortable_columns() {
 		return array(
 			'created_at' => array( 'created_at', false ),
 			'term'       => array( 'term', false ),
@@ -81,7 +81,7 @@ class ListTable extends \WP_List_Table {
 	/**
 	 * Prepares the list of items for displaying.
 	 */
-	function prepare_items() {
+	public function prepare_items() {
 		$logger   = get_logger();
 		$sortable = $this->get_sortable_columns();
 		$orderby  = null;

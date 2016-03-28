@@ -180,7 +180,26 @@ class CoreTest extends TestCase {
 		$term = uniqid();
 		$meta = array( uniqid() );
 
+		M::wpPassthruFunction( 'sanitize_text_field', array(
+			'times'  => 1,
+			'args'   => $term,
+		) );
 		M::expectAction( 'mcavoy_save_search_query', $term, $meta );
+
+		save_search_query( $term, $meta );
+	}
+
+	public function test_save_search_query_sanitizes_value() {
+		$term = '<a href="#" onclick="doEvilStuff">XSS link</a>';
+		$meta = array( uniqid() );
+
+		M::wpFunction( 'sanitize_text_field', array(
+			'times'  => 1,
+			'args'   => array( $term ),
+			'return' => 'XSS link',
+		) );
+
+		M::expectAction( 'mcavoy_save_search_query', 'XSS link', $meta );
 
 		save_search_query( $term, $meta );
 	}
