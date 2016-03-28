@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 * Fixed cross-site scripting (XSS) bug where search terms weren't automatically escaped.
-
+* Fixed fatal error (`Fatal error: Call to undefined function McAvoy\Admin\get_logger()`) when deleting saved queries that resulted as a side-effect of namespace juggling.
 
 ## [0.1.0] - 2016-03-27
 

@@ -16,6 +16,7 @@ class AdminTest extends McAvoy\TestCase {
 
 	protected $testFiles = array(
 		'admin.php',
+		'core.php',
 	);
 
 	public function test_search_page_callback() {
@@ -78,5 +79,40 @@ class AdminTest extends McAvoy\TestCase {
 		ob_end_clean();
 
 		$this->assertNotContains( '<form method="POST" id="mcavoy-delete-queries">', $result );
+	}
+
+	public function test_maybe_delete_queries() {
+		$_POST['mcavoy-nonce'] = 'foo';
+
+		$logger = Mockery::mock( 'McAvoy\Loggers\TestLogger' )->makePartial();
+		$logger->shouldReceive( 'delete_queries' )->once();
+
+		M::wpFunction( 'wp_verify_nonce', array(
+			'times'  => 1,
+			'args'   => array( 'foo', 'delete-queries' ),
+			'return' => true,
+		) );
+
+		M::wpFunction( 'current_user_can', array(
+			'times'  => 1,
+			'args'   => array( 'mcavoy_delete_queries' ),
+			'return' => true,
+		) );
+
+		M::wpFunction( 'McAvoy\get_logger', array(
+			'times'  => 1,
+			'return' => $logger,
+		) );
+
+		M::wpPassthruFunction( 'esc_html__' );
+
+		ob_start();
+		maybe_delete_queries();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$this->assertTrue( false !== strpos( $result, 'notice-success' ) );
+
+		unset( $_POST['mcavoy-nonce'] );
 	}
 }
