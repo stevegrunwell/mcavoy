@@ -42,4 +42,18 @@ class McAvoyQueryTest extends TestCase {
 		$this->assertEquals( 2, $found_prop->getValue( $instance ) );
 	}
 
+	public function test_get_items() {
+		$items = array( uniqid() );
+		$instance = new McAvoy_Query( $items );
+
+		$this->assertEquals( $items, $instance->get_items() );
+	}
+
+	public function test_get_items_casts_as_array() {
+		$items = uniqid();
+		$instance = new McAvoy_Query( $items );
+
+		$this->assertEquals( array( $items ), $instance->get_items() );
+	}
+
 }
