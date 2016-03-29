@@ -3,7 +3,7 @@
  * Plugin Name: McAvoy
  * Plugin URI:  https://wordpress.org/plugins/mcavoy
  * Description: Discover what visitors are searching for on your WordPress site.
- * Version:     0.1.1
+ * Version:     0.1.2
  * Author:      Steve Grunwell
  * Author URI:  https://stevegrunwell.com
  * License:     MIT
@@ -16,7 +16,7 @@
 
 namespace McAvoy;
 
-define( 'MCAVOY_VERSION', '0.1.1' );
+define( 'MCAVOY_VERSION', '0.1.2' );
 
 require_once __DIR__ . '/inc/admin.php';
 require_once __DIR__ . '/inc/caps.php';
