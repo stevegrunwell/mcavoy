@@ -33,6 +33,17 @@ class DatabaseLogger extends Logger {
 	}
 
 	/**
+	 * Initialize this logger.
+	 *
+	 * This method should call any internal methods necessary to prepare this logger.
+	 */
+	public function init() {
+		$this->maybe_trigger_activation();
+
+		parent::init();
+	}
+
+	/**
 	 * Flush the saved queries.
 	 *
 	 * @global $wpdb
@@ -148,5 +159,20 @@ class DatabaseLogger extends Logger {
 
 		// Remove the database version from the options table.
 		delete_option( 'mcavoy_db_version' );
+	}
+
+	/**
+	 * If the DatabaseLogger is being used but the database doesn't exist, attempt to create it even
+	 * if we're not in activation mode.
+	 *
+	 * A common use-case for this would be network activation, where McAvoy is active but the
+	 * activate() method has not been triggered.
+	 */
+	protected function maybe_trigger_activation() {
+		if ( get_option( 'mcavoy_db_version', false ) ) {
+			return;
+		}
+
+		$this->activate();
 	}
 }
