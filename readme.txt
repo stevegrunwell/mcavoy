@@ -4,7 +4,7 @@ Donate link:       https://stevegrunwell.com/donate
 Tags:              search, query, tracking, site search
 Requires at least: 4.4
 Tested up to:      4.4.2
-Stable tag:        0.1.1
+Stable tag:        0.1.2
 License:           MIT
 License URI:       https://opensource.org/licenses/MIT
 
@@ -68,6 +68,9 @@ This plugin was designed to answer five questions about your site's audience, sp
 
 For a complete changelog, please see [McAvoy's GitHub repository](https://github.com/stevegrunwell/mcavoy/blob/master/CHANGELOG.md).
 
+= 0.1.2 =
+* Fixed issue with WordPress Multisite wherein McAvoy would not properly set up the `DatabaseLogger` dependencies when network activated.
+
 = 0.1.1 =
 * Fixed cross-site scripting (XSS) bug where search terms weren't automatically escaped.
 * Fixed fatal error (`Fatal error: Call to undefined function McAvoy\Admin\get_logger()`) when deleting saved queries that resulted as a side-effect of namespace juggling.
@@ -76,7 +79,11 @@ For a complete changelog, please see [McAvoy's GitHub repository](https://github
 = 0.1.0 =
 * Initial public release.
 
+
 == Upgrade Notice ==
+
+= 0.1.2 =
+Fixes issues that arise when McAvoy is network activated within WordPress Multisite.
 
 = 0.1.1 =
 This release fixes a Cross-site Scripting (XSS) vulnerability and fixes a fatal error when trying to delete saved queries and is a recommended upgrade for all users.
