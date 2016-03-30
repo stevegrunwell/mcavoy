@@ -11,7 +11,7 @@ namespace McAvoy;
 use Mockery;
 use WP_Mock as M;
 
-class CapsTest extends TestCase {
+class UninstallTest extends TestCase {
 
 	public function setup() {
 		if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
