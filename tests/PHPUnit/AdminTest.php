@@ -127,4 +127,41 @@ class AdminTest extends McAvoy\TestCase {
 
 		unset( $_POST['mcavoy-nonce'] );
 	}
+
+	public function test_maybe_delete_queries_checks_nonce() {
+
+		// $_POST['mcavoy-nonce'] hasn't been set.
+		$this->assertNull( maybe_delete_queries() );
+
+		$_POST['mcavoy-nonce'] = 'foo';
+
+		M::wpFunction( 'wp_verify_nonce', array(
+			'times'  => 1,
+			'args'   => array( 'foo', 'delete-queries' ),
+			'return' => false,
+		) );
+
+		// If the nonce doesn't check out, we should still be coming back empty-handed.
+		$this->assertNull( maybe_delete_queries() );
+
+		unset( $_POST['mcavoy-nonce'] );
+	}
+
+	public function test_maybe_delete_queries_checks_current_user_caps() {
+		$_POST['mcavoy-nonce'] = 'foo';
+
+		M::wpFunction( 'wp_verify_nonce', array(
+			'return' => true,
+		) );
+
+		M::wpFunction( 'current_user_can', array(
+			'times'  => 1,
+			'args'   => array( 'mcavoy_delete_queries' ),
+			'return' => false,
+		) );
+
+		$this->assertNull( maybe_delete_queries() );
+
+		unset( $_POST['mcavoy-nonce'] );
+	}
 }
