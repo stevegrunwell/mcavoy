@@ -17,6 +17,31 @@ module.exports = function(grunt) {
 			}
 		},
 
+		sass: {
+			options: {
+				sourceMap: true
+			},
+			dist: {
+				files: {
+					'assets/css/admin.min.css': 'assets/css/src/admin.scss'
+				}
+			}
+		},
+
+		cssmin: {
+			options: {
+				sourceMap: true
+			},
+			target: {
+				files: [{
+					expand: true,
+					cwd: 'assets/css',
+					src: ['*.css'],
+					dest: 'assets/css',
+				}]
+			}
+		},
+
 		copy: {
 			main: {
 				src: [
@@ -50,11 +75,14 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-wp-i18n');
 
 	grunt.registerTask('i18n', ['makepot']);
 	grunt.registerTask('scripts', ['jshint', 'uglify']);
-	grunt.registerTask('build', ['scripts', 'i18n', 'copy']);
-	grunt.registerTask('default', ['scripts']);
+	grunt.registerTask('styles', ['sass', 'cssmin']);
+	grunt.registerTask('build', ['scripts', 'styles', 'i18n', 'copy']);
+	grunt.registerTask('default', ['scripts', 'styles']);
 };

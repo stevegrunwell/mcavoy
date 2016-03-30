@@ -1,0 +1,16 @@
+/**
+ * Admin styles for McAvoy.
+ *
+ * @package McAvoy
+ * @author  Steve Grunwell
+ */
+
+.mcavoy-searches-table {
+	th {
+		text-align: left;
+	}
+
+	.created_at {
+		width: 6em;
+	}
+}

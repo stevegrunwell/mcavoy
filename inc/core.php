@@ -29,6 +29,13 @@ add_action( 'template_redirect', __NAMESPACE__ . '\capture_search_query' );
  * Enqueue static assets used by the plugin.
  */
 function enqueue_assets() {
+	wp_enqueue_style(
+		'mcavoy-admin',
+		plugins_url( 'assets/css/admin.min.css', __DIR__ ),
+		null,
+		MCAVOY_VERSION
+	);
+
 	wp_register_script(
 		'mcavoy-admin',
 		plugins_url( 'assets/js/admin.min.js', __DIR__ ),
