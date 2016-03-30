@@ -67,7 +67,7 @@ class ListTableTest extends TestCase {
 		$this->assertEquals( 'i18n_TIME', $method->invoke( $instance, $item, 'created_at' ) );
 	}
 
-	public function test_column_term() {
+	public function test_column_default_term() {
 		$instance = new ListTable;
 		$method   = new ReflectionMethod( $instance, 'column_default' );
 		$method->setAccessible( true );
@@ -75,6 +75,25 @@ class ListTableTest extends TestCase {
 		$item->term = uniqid();
 
 		$this->assertEquals( $item->term, $method->invoke( $instance, $item, 'term' ) );
+	}
+
+	public function test_column_default_empty_term() {
+		$instance = new ListTable;
+		$method   = new ReflectionMethod( $instance, 'column_default' );
+		$method->setAccessible( true );
+		$item     = new \stdClass;
+		$item->term = '';
+
+		M::wpFunction( '_x', array(
+			'times'  => 1,
+			'return' => 'EMPTY_TERM',
+		) );
+
+		M::onFilter( 'mcavoy_empty_term_placeholder' )
+			->with( 'EMPTY_TERM' )
+			->reply( 'EMPTY!!' );
+
+		$this->assertEquals( 'EMPTY!!', $method->invoke( $instance, $item, 'term' ) );
 	}
 
 	public function test_get_sortable_columns() {

@@ -51,6 +51,19 @@ class ListTable extends \WP_List_Table {
 				);
 
 			case 'term':
+				if ( '' === $item->term ) {
+
+					/**
+					 * Filter the placeholder used for empty search terms.
+					 *
+					 * @param string $placeholder The text that will be displayed in McAvoy reports when the
+					 *                            search term is empty.
+					 */
+					$item->term = apply_filters(
+						'mcavoy_empty_term_placeholder',
+						_x( '<empty>', 'placeholder for empty search term in McAvoy report', 'mcavoy' )
+					);
+				}
 				return $item->term;
 		}
 	}
