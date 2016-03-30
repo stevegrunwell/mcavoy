@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/stevegrunwell/mcavoy.svg?branch=master)](https://travis-ci.org/stevegrunwell/mcavoy)
 [![Code Climate](https://codeclimate.com/github/stevegrunwell/mcavoy/badges/gpa.svg)](https://codeclimate.com/github/stevegrunwell/mcavoy)
+[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/mcavoy.svg)](https://wordpress.org/plugins/mcavoy)
 
 McAvoy is a simple WordPress plugin that logs site searches (and information about the people performing them) so you can get a better sense of what your audience is looking for. Is your navigation unclear? Are people regularly getting lost in your infinitely-scrolling homepage when they're just trying to find the latest news on a topic? McAvoy is there, collecting the facts you need to make informed decisions!
 

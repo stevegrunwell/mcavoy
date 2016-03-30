@@ -50,7 +50,7 @@ Furthermore, please adhere to [10up's Engineering Best Practices](https://10up.g
 The latest versions of PHPUnit require PHP 5.6 or above, but officially McAvoy attempts to support [any version of PHP that is still receiving security updates](http://php.net/supported-versions.php). At an *absolute minimum* users must be on PHP 5.3 or higher, as versions prior to 5.3 have no support for namespaces, but PHP 5.3 itself is not necessarily supported (as it stopped receiving security updates in mid-2014).
 
 
-## Unit testing
+## Unit testing [![Test Coverage](https://codeclimate.com/github/stevegrunwell/mcavoy/badges/coverage.svg)](https://codeclimate.com/github/stevegrunwell/mcavoy/coverage)
 
 Unit tests are included with this repository, written using [PHPUnit](https://phpunit.de/), [Mockery](http://docs.mockery.io/en/latest/), and [WP_Mock](https://github.com/10up/wp_mock). Whenever submitting a code-related change, *please* provide a corresponding unit test. Only you can prevent regressions!
 
