@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+* Added the `mcavoy_empty_term_placeholder` filter to determine what text should be displayed in McAvoy reports for empty search terms (fixes [#23]).
 * Improved test coverage for `McAvoy_Query`, `ListTable`, and `McAvoy\Admin\maybe_delete_queries()`.
 * Added additional documentation relating to the current stable tag and test coverage.
 
@@ -34,3 +35,4 @@ Initial public release.
 [0.1.1]: https://github.com/stevegrunwell/mcavoy/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/stevegrunwell/mcavoy/releases/tag/v0.1.0
 [#22]: https://github.com/stevegrunwell/mcavoy/issues/22
+[#23]: https://github.com/stevegrunwell/mcavoy/issues/23
