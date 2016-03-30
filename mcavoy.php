@@ -23,6 +23,7 @@ require_once __DIR__ . '/inc/caps.php';
 require_once __DIR__ . '/inc/core.php';
 require_once __DIR__ . '/inc/class-list-table.php';
 require_once __DIR__ . '/inc/class-mcavoy-query.php';
+require_once __DIR__ . '/inc/dashboard.php';
 require_once __DIR__ . '/inc/loggers/autoload.php';
 
 /**
