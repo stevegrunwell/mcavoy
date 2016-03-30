@@ -91,7 +91,198 @@ class ListTableTest extends TestCase {
 	}
 
 	public function test_prepare_items() {
-		$this->markTestIncomplete( 'Incomplete' );
+		$_GET['orderby'] = 'foo';
+		$_GET['order']   = 'asc';
+		$_GET['paged']   = 1;
+
+		$instance = Mockery::mock( __NAMESPACE__ . '\ListTable' )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+		$instance->shouldReceive( 'get_columns' )
+			->once()
+			->andReturn( array( 'foo' => 'Foo' ) );
+		$instance->shouldReceive( 'get_sortable_columns' )
+			->once()
+			->andReturn( array( 'column-a' ) );
+		$instance->shouldReceive( 'set_pagination_args' )
+			->once()
+			->with( 'PAGINATION_ARGS' );
+		$queries  = Mockery::mock( 'McAvoy_Query' )
+			->makePartial();
+		$queries->shouldReceive( 'get_items' )
+			->once()
+			->andReturn( array( 'foo', 'bar' ) );
+		$queries->shouldReceive( 'get_pagination_args' )
+			->once()
+			->andReturn( 'PAGINATION_ARGS' );
+		$logger   = Mockery::mock( __NAMESPACE__ . '\Loggers\TestLogger' )->makePartial();
+		$logger->shouldReceive( 'get_queries' )
+			->once()
+			->with( array(
+				'orderby' => 'foo',
+				'order'   => 'asc',
+				'page'    => 1,
+			) )
+			->andReturn( $queries );
+		$prop     = new ReflectionProperty( $instance, '_column_headers' );
+		$prop->setAccessible( true );
+
+		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+			'times'  => 1,
+			'return' => $logger,
+		) );
+
+		M::wpPassthruFunction( 'absint', array(
+			'times'  => 1,
+		) );
+
+		$instance->prepare_items();
+
+		$this->assertEquals(
+			array( array( 'foo' => 'Foo' ), array(), array( 'column-a' ) ),
+			$prop->getValue( $instance )
+		);
+
+		unset( $_GET['orderby'], $_GET['order'], $_GET['paged'] );
+	}
+
+	public function test_prepare_items_validates_orderby() {
+		$_GET['orderby'] = 'foo';
+
+		$instance = Mockery::mock( __NAMESPACE__ . '\ListTable' )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+		$instance->shouldReceive( 'get_columns' );
+		$instance->shouldReceive( 'get_sortable_columns' )
+			->andReturn( array( 'bar' => 'Bar' ) );
+		$instance->shouldReceive( 'set_pagination_args' );
+		$queries  = Mockery::mock( 'McAvoy_Query' )->makePartial();
+		$queries->shouldReceive( 'get_items' );
+		$queries->shouldReceive( 'get_pagination_args' );
+		$logger   = Mockery::mock( __NAMESPACE__ . '\Loggers\TestLogger' )->makePartial();
+		$logger->shouldReceive( 'get_queries' )
+			->once()
+			->with( array(
+				'orderby' => null,
+				'order'   => null,
+				'page'    => 1,
+			) )
+			->andReturn( $queries );
+
+		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+			'return' => $logger,
+		) );
+
+		M::wpPassthruFunction( 'absint' );
+
+		$instance->prepare_items();
+
+		unset( $_GET['orderby'] );
+	}
+
+	public function test_prepare_items_validates_order() {
+		$_GET['order'] = 'desc';
+
+		$instance = Mockery::mock( __NAMESPACE__ . '\ListTable' )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+		$instance->shouldReceive( 'get_columns' );
+		$instance->shouldReceive( 'get_sortable_columns' )
+			->andReturn( array( 'bar' => 'Bar' ) );
+		$instance->shouldReceive( 'set_pagination_args' );
+		$queries  = Mockery::mock( 'McAvoy_Query' )->makePartial();
+		$queries->shouldReceive( 'get_items' );
+		$queries->shouldReceive( 'get_pagination_args' );
+		$logger   = Mockery::mock( __NAMESPACE__ . '\Loggers\TestLogger' )->makePartial();
+		$logger->shouldReceive( 'get_queries' )
+			->once()
+			->with( array(
+				'orderby' => null,
+				'order'   => 'desc',
+				'page'    => 1,
+			) )
+			->andReturn( $queries );
+
+		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+			'return' => $logger,
+		) );
+
+		M::wpPassthruFunction( 'absint' );
+
+		$instance->prepare_items();
+
+		unset( $_GET['order'] );
+	}
+
+	public function test_prepare_items_validates_order_with_bad_value() {
+		$_GET['order'] = 'foo';
+
+		$instance = Mockery::mock( __NAMESPACE__ . '\ListTable' )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+		$instance->shouldReceive( 'get_columns' );
+		$instance->shouldReceive( 'get_sortable_columns' )
+			->andReturn( array( 'bar' => 'Bar' ) );
+		$instance->shouldReceive( 'set_pagination_args' );
+		$queries  = Mockery::mock( 'McAvoy_Query' )->makePartial();
+		$queries->shouldReceive( 'get_items' );
+		$queries->shouldReceive( 'get_pagination_args' );
+		$logger   = Mockery::mock( __NAMESPACE__ . '\Loggers\TestLogger' )->makePartial();
+		$logger->shouldReceive( 'get_queries' )
+			->once()
+			->with( array(
+				'orderby' => null,
+				'order'   => null,
+				'page'    => 1,
+			) )
+			->andReturn( $queries );
+
+		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+			'return' => $logger,
+		) );
+
+		M::wpPassthruFunction( 'absint' );
+
+		$instance->prepare_items();
+
+		unset( $_GET['order'] );
+	}
+
+	public function test_prepare_items_validates_page() {
+		$_GET['paged'] = '3';
+
+		$instance = Mockery::mock( __NAMESPACE__ . '\ListTable' )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+		$instance->shouldReceive( 'get_columns' );
+		$instance->shouldReceive( 'get_sortable_columns' )
+			->andReturn( array( 'bar' => 'Bar' ) );
+		$instance->shouldReceive( 'set_pagination_args' );
+		$queries  = Mockery::mock( 'McAvoy_Query' )->makePartial();
+		$queries->shouldReceive( 'get_items' );
+		$queries->shouldReceive( 'get_pagination_args' );
+		$logger   = Mockery::mock( __NAMESPACE__ . '\Loggers\TestLogger' )->makePartial();
+		$logger->shouldReceive( 'get_queries' )
+			->once()
+			->with( array(
+				'orderby' => null,
+				'order'   => null,
+				'page'    => 3,
+			) )
+			->andReturn( $queries );
+
+		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+			'return' => $logger,
+		) );
+
+		M::wpPassthruFunction( 'absint', array(
+			'times'  => 1,
+			'args'   => array( 3 ),
+		) );
+
+		$instance->prepare_items();
+
+		unset( $_GET['paged'] );
 	}
 
 	public function test_get_datetime_format() {
