@@ -25,17 +25,6 @@ class ListTable extends \WP_List_Table {
 	protected $datetime_format;
 
 	/**
-	 * Class constructor.
-	 */
-	public function __construct() {
-		$this->datetime_format = get_option( 'links_updated_date_format' );
-
-		parent::__construct( array(
-			'ajax' => true,
-		) );
-	}
-
-	/**
 	 * Get a list of columns.
 	 *
 	 * @return array
@@ -57,7 +46,7 @@ class ListTable extends \WP_List_Table {
 		switch ( $column_name ) {
 			case 'created_at':
 				return date_i18n(
-					$this->datetime_format,
+					$this->get_datetime_format(),
 					strtotime( get_date_from_gmt( $item->created_at ) )
 				);
 
@@ -116,5 +105,18 @@ class ListTable extends \WP_List_Table {
 		) );
 		$this->items = $queries->get_items();
 		$this->set_pagination_args( $queries->get_pagination_args() );
+	}
+
+	/**
+	 * Get the datetime format to use when displaying dates.
+	 *
+	 * @return string A PHP date() format string.
+	 */
+	protected function get_datetime_format() {
+		if ( ! $this->datetime_format ) {
+			$this->datetime_format = get_option( 'links_updated_date_format' );
+		}
+
+		return $this->datetime_format;
 	}
 }
