@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 * Improved test coverage for `McAvoy_Query` class.
+* Added additional documentation relating to the current stable tag and test coverage.
 
 
 ## [0.1.2] - 2016-03-29
