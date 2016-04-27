@@ -125,14 +125,14 @@ class DatabaseLogger extends Logger {
 
 		$table   = $wpdb->prefix . self::SEARCHES_TABLE;
 		$charset = $wpdb->get_charset_collate();
-		$sql     = "CREATE TABLE IF NOT EXISTS $table (
-			`id` tinyint(11) unsigned NOT NULL AUTO_INCREMENT,
-			`term` varchar(255) NOT NULL DEFAULT '',
-			`metadata` text,
-			`created_at` datetime NOT NULL,
-			PRIMARY KEY (`id`),
-			KEY `term` (`term`),
-			KEY `created_at` (`created_at`)
+		$sql     = "CREATE TABLE $table (
+			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			term varchar(255) DEFAULT '' NOT NULL,
+			metadata text,
+			created_at datetime NOT NULL,
+			PRIMARY KEY  (id),
+			KEY term (term),
+			KEY created_at (created_at)
 		) $charset;";
 
 		// Load the necessary libraries and run the schema migration.

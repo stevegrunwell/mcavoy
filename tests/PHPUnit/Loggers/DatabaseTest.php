@@ -89,6 +89,10 @@ class DatabaseTest extends McAvoy\TestCase {
 			'returnUsing' => function ( $sql ) {
 				if ( false === strpos( $sql, 'wp_mcavoy_searches' ) ) {
 					$this->fail( 'Unexpected database table name' );
+
+				/** @ticket #26 */
+				} elseif ( false === strpos( $sql, '`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT' ) ) {
+					$this->fail( 'The ID column in the database logger table should be an unsigned BIGINT' );
 				}
 				return true;
 			}
