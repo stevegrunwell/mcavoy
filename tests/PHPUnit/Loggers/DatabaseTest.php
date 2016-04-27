@@ -89,6 +89,10 @@ class DatabaseTest extends McAvoy\TestCase {
 			'returnUsing' => function ( $sql ) {
 				if ( false === strpos( $sql, 'wp_mcavoy_searches' ) ) {
 					$this->fail( 'Unexpected database table name' );
+
+				/** @ticket #26 */
+				} elseif ( false === strpos( $sql, '`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT' ) ) {
+					$this->fail( 'The ID column in the database logger table should be an unsigned BIGINT' );
 				}
 				return true;
 			}
@@ -142,12 +146,25 @@ class DatabaseTest extends McAvoy\TestCase {
 		$method->invoke( $instance );
 	}
 
-	public function test_maybe_trigger_activation_only_runs_if_option_is_not_set() {
+	public function test_maybe_trigger_activation_bails_if_db_is_current() {
 		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )->makePartial();
 		$instance->shouldReceive( 'activate' )->never();
 
 		M::wpFunction( 'get_option', array(
-			'return' => 1,
+			'return' => 99999999,
+		) );
+
+		$method = new ReflectionMethod( $instance, 'maybe_trigger_activation' );
+		$method->setAccessible( true );
+		$method->invoke( $instance );
+	}
+
+	public function test_maybe_trigger_activation_upgrade_schema() {
+		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )->makePartial();
+		$instance->shouldReceive( 'activate' )->once();
+
+		M::wpFunction( 'get_option', array(
+			'return' => -1,
 		) );
 
 		$method = new ReflectionMethod( $instance, 'maybe_trigger_activation' );
