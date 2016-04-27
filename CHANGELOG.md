@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file, according t
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [0.1.3] - 2016-04-26
 
 * Fixed the `mcavoy_searches` table schema to accommodate more searches ([#26]).
+
 
 ## [0.1.2] - 2016-03-29
 
