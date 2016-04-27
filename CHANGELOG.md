@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file, according t
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+* Fixed the `mcavoy_searches` table schema to accommodate more searches ([#26]).
+
 ## [0.1.2] - 2016-03-29
 
 * When `DatabaseLogger::init()` is called, the logger will now run `DatabaseLogger::maybe_trigger_activation()` which checks for the existence of the `mcavoy_db_version` option and, if it's not found, will run `activate()`. This addresses [#22] and provides more consistent behavior in WordPress Multisite instances (where there will be multiple `*_mcavoy_searches` tables).
@@ -28,3 +32,4 @@ Initial public release.
 [0.1.1]: https://github.com/stevegrunwell/mcavoy/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/stevegrunwell/mcavoy/releases/tag/v0.1.0
 [#22]: https://github.com/stevegrunwell/mcavoy/issues/22
+[#26]: https://github.com/stevegrunwell/mcavoy/issues/26
