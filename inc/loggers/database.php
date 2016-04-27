@@ -18,7 +18,7 @@ class DatabaseLogger extends Logger {
 	/**
 	 * The current database schema version.
 	 */
-	const SCHEMA_VERSION = 1;
+	const SCHEMA_VERSION = 2;
 
 	/**
 	 * The database table that holds search terms.
@@ -125,14 +125,14 @@ class DatabaseLogger extends Logger {
 
 		$table   = $wpdb->prefix . self::SEARCHES_TABLE;
 		$charset = $wpdb->get_charset_collate();
-		$sql     = "CREATE TABLE IF NOT EXISTS $table (
-			`id` tinyint(11) unsigned NOT NULL AUTO_INCREMENT,
-			`term` varchar(255) NOT NULL DEFAULT '',
-			`metadata` text,
-			`created_at` datetime NOT NULL,
-			PRIMARY KEY (`id`),
-			KEY `term` (`term`),
-			KEY `created_at` (`created_at`)
+		$sql     = "CREATE TABLE $table (
+			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			term varchar(255) DEFAULT '' NOT NULL,
+			metadata text,
+			created_at datetime NOT NULL,
+			PRIMARY KEY  (id),
+			KEY term (term),
+			KEY created_at (created_at)
 		) $charset;";
 
 		// Load the necessary libraries and run the schema migration.
@@ -169,7 +169,9 @@ class DatabaseLogger extends Logger {
 	 * activate() method has not been triggered.
 	 */
 	protected function maybe_trigger_activation() {
-		if ( get_option( 'mcavoy_db_version', false ) ) {
+		$db_version = get_option( 'mcavoy_db_version', false );
+
+		if ( $db_version && $db_version >= self::SCHEMA_VERSION ) {
 			return;
 		}
 

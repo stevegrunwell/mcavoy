@@ -3,8 +3,8 @@ Contributors:      stevegrunwell
 Donate link:       https://stevegrunwell.com/donate
 Tags:              search, query, tracking, site search
 Requires at least: 4.4
-Tested up to:      4.4.2
-Stable tag:        0.1.2
+Tested up to:      4.5.1
+Stable tag:        0.1.3
 License:           MIT
 License URI:       https://opensource.org/licenses/MIT
 
@@ -68,6 +68,9 @@ This plugin was designed to answer five questions about your site's audience, sp
 
 For a complete changelog, please see [McAvoy's GitHub repository](https://github.com/stevegrunwell/mcavoy/blob/master/CHANGELOG.md).
 
+= 0.1.3 =
+* Fixed the `mcavoy_searches` table schema to accommodate more searches.
+
 = 0.1.2 =
 * Fixed issue with WordPress Multisite wherein McAvoy would not properly set up the `DatabaseLogger` dependencies when network activated.
 
@@ -81,6 +84,9 @@ For a complete changelog, please see [McAvoy's GitHub repository](https://github
 
 
 == Upgrade Notice ==
+
+= 0.1.3 =
+Fixes issue with Database Logger schema that may cause searches to stop being recorded.
 
 = 0.1.2 =
 Fixes issues that arise when McAvoy is network activated within WordPress Multisite.
