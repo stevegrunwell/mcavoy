@@ -18,7 +18,7 @@ class DatabaseLogger extends Logger {
 	/**
 	 * The current database schema version.
 	 */
-	const SCHEMA_VERSION = 1;
+	const SCHEMA_VERSION = 2;
 
 	/**
 	 * The database table that holds search terms.
@@ -169,7 +169,9 @@ class DatabaseLogger extends Logger {
 	 * activate() method has not been triggered.
 	 */
 	protected function maybe_trigger_activation() {
-		if ( get_option( 'mcavoy_db_version', false ) ) {
+		$db_version = get_option( 'mcavoy_db_version', false );
+
+		if ( $db_version && $db_version >= self::SCHEMA_VERSION ) {
 			return;
 		}
 

@@ -146,12 +146,25 @@ class DatabaseTest extends McAvoy\TestCase {
 		$method->invoke( $instance );
 	}
 
-	public function test_maybe_trigger_activation_only_runs_if_option_is_not_set() {
+	public function test_maybe_trigger_activation_bails_if_db_is_current() {
 		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )->makePartial();
 		$instance->shouldReceive( 'activate' )->never();
 
 		M::wpFunction( 'get_option', array(
-			'return' => 1,
+			'return' => 99999999,
+		) );
+
+		$method = new ReflectionMethod( $instance, 'maybe_trigger_activation' );
+		$method->setAccessible( true );
+		$method->invoke( $instance );
+	}
+
+	public function test_maybe_trigger_activation_upgrade_schema() {
+		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )->makePartial();
+		$instance->shouldReceive( 'activate' )->once();
+
+		M::wpFunction( 'get_option', array(
+			'return' => -1,
 		) );
 
 		$method = new ReflectionMethod( $instance, 'maybe_trigger_activation' );
