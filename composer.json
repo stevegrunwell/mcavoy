@@ -10,11 +10,9 @@
         }
     ],
     "require-dev": {
-        "stevegrunwell/wp-enforcer": "^0.4.1",
+        "stevegrunwell/wp-enforcer": "dev-master",
         "10up/wp_mock": "^0.1.1",
-        "phpunit/phpunit": "^5.2",
-        "codeclimate/php-test-reporter": "^0.3.0",
-        "antecedent/patchwork": "1.4.0"
+        "codeclimate/php-test-reporter": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
