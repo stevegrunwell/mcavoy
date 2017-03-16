@@ -22,7 +22,7 @@ class ListTableTest extends TestCase {
 	public function test_get_columns() {
 		$keys = array( 'created_at', 'term' );
 
-		M::wpPassthruFunction( '_x', array(
+		M::passthruFunction( '_x', array(
 			'times'  => count( $keys ),
 		) );
 
@@ -52,13 +52,13 @@ class ListTableTest extends TestCase {
 		$item     = new \stdClass;
 		$item->created_at = 'DATE';
 
-		M::wpFunction( 'date_i18n', array(
+		M::userFunction( 'date_i18n', array(
 			'times'  => 1,
 			'args'   => array( 'FORMAT', 0 ),
 			'return' => 'i18n_TIME',
 		) );
 
-		M::wpFunction( 'get_date_from_gmt', array(
+		M::userFunction( 'get_date_from_gmt', array(
 			'times'  => 1,
 			'args'   => array( 'DATE' ),
 			'return' => 'GMT_DATE',
@@ -84,7 +84,7 @@ class ListTableTest extends TestCase {
 		$item     = new \stdClass;
 		$item->term = '';
 
-		M::wpFunction( '_x', array(
+		M::userFunction( '_x', array(
 			'times'  => 1,
 			'return' => 'EMPTY_TERM',
 		) );
@@ -146,12 +146,12 @@ class ListTableTest extends TestCase {
 		$prop     = new ReflectionProperty( $instance, '_column_headers' );
 		$prop->setAccessible( true );
 
-		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+		M::userFunction( __NAMESPACE__ . '\get_logger', array(
 			'times'  => 1,
 			'return' => $logger,
 		) );
 
-		M::wpPassthruFunction( 'absint', array(
+		M::passthruFunction( 'absint', array(
 			'times'  => 1,
 		) );
 
@@ -188,11 +188,11 @@ class ListTableTest extends TestCase {
 			) )
 			->andReturn( $queries );
 
-		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+		M::userFunction( __NAMESPACE__ . '\get_logger', array(
 			'return' => $logger,
 		) );
 
-		M::wpPassthruFunction( 'absint' );
+		M::passthruFunction( 'absint' );
 
 		$instance->prepare_items();
 
@@ -222,11 +222,11 @@ class ListTableTest extends TestCase {
 			) )
 			->andReturn( $queries );
 
-		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+		M::userFunction( __NAMESPACE__ . '\get_logger', array(
 			'return' => $logger,
 		) );
 
-		M::wpPassthruFunction( 'absint' );
+		M::passthruFunction( 'absint' );
 
 		$instance->prepare_items();
 
@@ -256,11 +256,11 @@ class ListTableTest extends TestCase {
 			) )
 			->andReturn( $queries );
 
-		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+		M::userFunction( __NAMESPACE__ . '\get_logger', array(
 			'return' => $logger,
 		) );
 
-		M::wpPassthruFunction( 'absint' );
+		M::passthruFunction( 'absint' );
 
 		$instance->prepare_items();
 
@@ -290,11 +290,11 @@ class ListTableTest extends TestCase {
 			) )
 			->andReturn( $queries );
 
-		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+		M::userFunction( __NAMESPACE__ . '\get_logger', array(
 			'return' => $logger,
 		) );
 
-		M::wpPassthruFunction( 'absint', array(
+		M::passthruFunction( 'absint', array(
 			'times'  => 1,
 			'args'   => array( 3 ),
 		) );
@@ -310,7 +310,7 @@ class ListTableTest extends TestCase {
 		$method->setAccessible( true );
 		$format   = uniqid();
 
-		M::wpFunction( 'get_option', array(
+		M::userFunction( 'get_option', array(
 			'times'  => 1,
 			'args'   => array( 'links_updated_date_format' ),
 			'return' => $format,
@@ -327,7 +327,7 @@ class ListTableTest extends TestCase {
 		$prop->setAccessible( true );
 		$prop->setValue( $instance, $format );
 
-		M::wpFunction( 'get_option', array(
+		M::userFunction( 'get_option', array(
 			'times'  => 0,
 		) );
 

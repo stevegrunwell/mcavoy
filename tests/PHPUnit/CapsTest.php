@@ -35,12 +35,12 @@ class CapsTest extends McAvoy\TestCase {
 		$role->shouldReceive( 'add_cap' )->times( 2 )->with( 'mcavoy_foo', true );
 		$role->shouldReceive( 'add_cap' )->once()->with( 'mcavoy_bar', true );
 
-		M::wpFunction( __NAMESPACE__ . '\get_caps', array(
+		M::userFunction( __NAMESPACE__ . '\get_caps', array(
 			'times'  => 1,
 			'return' => $caps,
 		) );
 
-		M::wpFunction( 'get_role', array(
+		M::userFunction( 'get_role', array(
 			'return' => $role,
 		) );
 
@@ -65,12 +65,12 @@ class CapsTest extends McAvoy\TestCase {
 		$role->shouldReceive( 'remove_cap' )->times( 2 )->with( 'mcavoy_foo' );
 		$role->shouldReceive( 'remove_cap' )->once()->with( 'mcavoy_bar' );
 
-		M::wpFunction( __NAMESPACE__ . '\get_caps', array(
+		M::userFunction( __NAMESPACE__ . '\get_caps', array(
 			'times'  => 1,
 			'return' => $caps,
 		) );
 
-		M::wpFunction( 'get_role', array(
+		M::userFunction( 'get_role', array(
 			'return' => $role,
 		) );
 
