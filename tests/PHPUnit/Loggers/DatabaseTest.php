@@ -47,13 +47,13 @@ class DatabaseTest extends McAvoy\TestCase {
 				'created_at' => 'CURRENT_TIME',
 			), array( '%s', '%s', '%s' ) );
 
-		M::wpFunction( 'wp_json_encode', array(
+		M::userFunction( 'wp_json_encode', array(
 			'times'  => 1,
 			'args'   => array( $meta ),
 			'return' => 'JSON',
 		) );
 
-		M::wpFunction( 'current_time', array(
+		M::userFunction( 'current_time', array(
 			'times'  => 1,
 			'args'   => array( 'mysql', true ),
 			'return' => 'CURRENT_TIME',
@@ -84,7 +84,7 @@ class DatabaseTest extends McAvoy\TestCase {
 		$wpdb->shouldReceive( 'get_charset_collate' )->once()->andReturn( 'utf-8' );
 		$wpdb->prefix = 'wp_';
 
-		M::wpFunction( 'dbDelta', array(
+		M::userFunction( 'dbDelta', array(
 			'times'       => 1,
 			'returnUsing' => function ( $sql ) {
 				if ( false === strpos( $sql, 'wp_mcavoy_searches' ) ) {
@@ -98,7 +98,7 @@ class DatabaseTest extends McAvoy\TestCase {
 			}
 		) );
 
-		M::wpFunction( 'update_option', array(
+		M::userFunction( 'update_option', array(
 			'times'  => 1,
 			'args'   => array( 'mcavoy_db_version', DatabaseLogger::SCHEMA_VERSION, false ),
 		) );
@@ -121,7 +121,7 @@ class DatabaseTest extends McAvoy\TestCase {
 			->once()
 			->with( 'DROP TABLE IF EXISTS wp_mcavoy_searches' );
 
-		M::wpFunction( 'delete_option', array(
+		M::userFunction( 'delete_option', array(
 			'times'  => 1,
 			'args'   => array( 'mcavoy_db_version' ),
 		) );
@@ -135,7 +135,7 @@ class DatabaseTest extends McAvoy\TestCase {
 		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )->makePartial();
 		$instance->shouldReceive( 'activate' )->once();
 
-		M::wpFunction( 'get_option', array(
+		M::userFunction( 'get_option', array(
 			'times'  => 1,
 			'args'   => array( 'mcavoy_db_version', false ),
 			'return' => false,
@@ -150,7 +150,7 @@ class DatabaseTest extends McAvoy\TestCase {
 		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )->makePartial();
 		$instance->shouldReceive( 'activate' )->never();
 
-		M::wpFunction( 'get_option', array(
+		M::userFunction( 'get_option', array(
 			'return' => 99999999,
 		) );
 
@@ -163,7 +163,7 @@ class DatabaseTest extends McAvoy\TestCase {
 		$instance = Mockery::mock( __NAMESPACE__ . '\DatabaseLogger' )->makePartial();
 		$instance->shouldReceive( 'activate' )->once();
 
-		M::wpFunction( 'get_option', array(
+		M::userFunction( 'get_option', array(
 			'return' => -1,
 		) );
 

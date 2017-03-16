@@ -42,7 +42,7 @@ class BaseLoggerTest extends McAvoy\TestCase {
 		$method   = new ReflectionMethod( $instance, 'get_args' );
 		$method->setAccessible( true );
 
-		M::wpFunction( 'wp_parse_args', array(
+		M::userFunction( 'wp_parse_args', array(
 			'times'  => 1,
 			'args'   => array(
 				array( 'foo', 'bar' ),

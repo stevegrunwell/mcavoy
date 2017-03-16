@@ -25,7 +25,7 @@ class UninstallTest extends TestCase {
 		$logger = Mockery::mock( __NAMESPACE__ . '\Logger\DatabaseLogger' )->makePartial();
 		$logger->shouldReceive( 'uninstall' )->once();
 
-		M::wpFunction( __NAMESPACE__ . '\get_logger', array(
+		M::userFunction( __NAMESPACE__ . '\get_logger', array(
 			'times'  => 1,
 			'return' => $logger,
 		) );

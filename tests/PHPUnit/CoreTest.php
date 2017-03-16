@@ -17,28 +17,28 @@ class CoreTest extends TestCase {
 	);
 
 	public function test_capture_search_query() {
-		M::wpFunction( 'is_search', array(
+		M::userFunction( 'is_search', array(
 			'times'  => 1,
 			'return' => true,
 		) );
 
-		M::wpFunction( 'is_paged', array(
+		M::userFunction( 'is_paged', array(
 			'times'  => 1,
 			'return' => false,
 		) );
 
-		M::wpFunction( 'get_query_var', array(
+		M::userFunction( 'get_query_var', array(
 			'times'  => 1,
 			'args'   => array( 's', false ),
 			'return' => 'foo',
 		) );
 
-		M::wpFunction( __NAMESPACE__ . '\prepare_query_metadata', array(
+		M::userFunction( __NAMESPACE__ . '\prepare_query_metadata', array(
 			'times'  => 1,
 			'return' => array( 'meta', 'data' ),
 		) );
 
-		M::wpFunction( __NAMESPACE__ . '\save_search_query', array(
+		M::userFunction( __NAMESPACE__ . '\save_search_query', array(
 			'times'  => 1,
 			'args'   => array( 'foo', array( 'meta', 'data' ) ),
 			'return' => true,
@@ -48,16 +48,16 @@ class CoreTest extends TestCase {
 	}
 
 	public function test_capture_search_query_checks_if_is_search() {
-		M::wpFunction( 'is_search', array(
+		M::userFunction( 'is_search', array(
 			'times'  => 1,
 			'return' => false,
 		) );
 
-		M::wpFunction( 'is_paged', array(
+		M::userFunction( 'is_paged', array(
 			'times'  => 0,
 		) );
 
-		M::wpFunction( 'get_query_var', array(
+		M::userFunction( 'get_query_var', array(
 			'times'  => 0,
 		) );
 
@@ -66,17 +66,17 @@ class CoreTest extends TestCase {
 
 	// We're not concerned about logging a search query if it's page 2+ of results.
 	public function test_capture_search_query_checks_if_is_paged() {
-		M::wpFunction( 'is_search', array(
+		M::userFunction( 'is_search', array(
 			'times'  => 1,
 			'return' => true,
 		) );
 
-		M::wpFunction( 'is_paged', array(
+		M::userFunction( 'is_paged', array(
 			'times'  => 1,
 			'return' => true,
 		) );
 
-		M::wpFunction( 'get_query_var', array(
+		M::userFunction( 'get_query_var', array(
 			'times'  => 0,
 		) );
 
@@ -106,22 +106,22 @@ class CoreTest extends TestCase {
 		$user->ID         = 1;
 		$user->user_login = 'foobar';
 
-		M::wpFunction( 'wp_get_current_user', array(
+		M::userFunction( 'wp_get_current_user', array(
 			'times'  => 1,
 			'return' => $user,
 		) );
 
-		M::wpFunction( 'wp_get_referer', array(
+		M::userFunction( 'wp_get_referer', array(
 			'times'  => 1,
 			'return' => 'http://example.com',
 		) );
 
-		M::wpPassthruFunction( 'sanitize_text_field', array(
+		M::passthruFunction( 'sanitize_text_field', array(
 			'times' => 1,
 			'args'  => array( $server['REMOTE_ADDR'] ),
 		) );
 
-		M::wpPassthruFunction( 'sanitize_text_field', array(
+		M::passthruFunction( 'sanitize_text_field', array(
 			'times' => 1,
 			'args'  => array( $server['HTTP_USER_AGENT'] ),
 		) );
@@ -155,16 +155,16 @@ class CoreTest extends TestCase {
 		$user = new \stdClass;
 		$user->ID         = 0;
 
-		M::wpFunction( 'wp_get_current_user', array(
+		M::userFunction( 'wp_get_current_user', array(
 			'times'  => 1,
 			'return' => $user,
 		) );
 
-		M::wpFunction( 'wp_get_referer', array(
+		M::userFunction( 'wp_get_referer', array(
 			'return' => 'http://example.com',
 		) );
 
-		M::wpPassthruFunction( 'sanitize_text_field' );
+		M::passthruFunction( 'sanitize_text_field' );
 
 		// Add our values to the $_SERVER superglobal.
 		$_SERVER = array_merge( $_SERVER, $server );
@@ -180,7 +180,7 @@ class CoreTest extends TestCase {
 		$term = uniqid();
 		$meta = array( uniqid() );
 
-		M::wpPassthruFunction( 'sanitize_text_field', array(
+		M::passthruFunction( 'sanitize_text_field', array(
 			'times'  => 1,
 			'args'   => $term,
 		) );
@@ -193,7 +193,7 @@ class CoreTest extends TestCase {
 		$term = '<a href="#" onclick="doEvilStuff">XSS link</a>';
 		$meta = array( uniqid() );
 
-		M::wpFunction( 'sanitize_text_field', array(
+		M::userFunction( 'sanitize_text_field', array(
 			'times'  => 1,
 			'args'   => array( $term ),
 			'return' => 'XSS link',
