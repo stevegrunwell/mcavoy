@@ -22,8 +22,8 @@ class AdminTest extends McAvoy\TestCase {
 	);
 
 	public function test_search_page_callback() {
-		P\redefine('McAvoy\ListTable::prepare_items', function () {} );
-		P\redefine('McAvoy\ListTable::display', function () {} );
+		P\replace('McAvoy\ListTable::prepare_items', function () {} );
+		P\replace('McAvoy\ListTable::display', function () {} );
 
 		M::wpFunction( __NAMESPACE__ . '\maybe_delete_queries', array(
 			'times'  => 1,
@@ -58,12 +58,12 @@ class AdminTest extends McAvoy\TestCase {
 
 		$this->assertContains( '<div class="wrap">', $result );
 
-		P\restoreAll();
+		P\undoAll();
 	}
 
 	public function test_search_page_callback_checks_delete_cap() {
-		P\redefine('McAvoy\ListTable::prepare_items', function () {} );
-		P\redefine('McAvoy\ListTable::display', function () {} );
+		P\replace('McAvoy\ListTable::prepare_items', function () {} );
+		P\replace('McAvoy\ListTable::display', function () {} );
 
 		M::wpFunction( __NAMESPACE__ . '\maybe_delete_queries', array(
 			'times'  => 1,
@@ -90,7 +90,7 @@ class AdminTest extends McAvoy\TestCase {
 
 		$this->assertNotContains( '<form method="POST" id="mcavoy-delete-queries">', $result );
 
-		P\restoreAll();
+		P\undoAll();
 	}
 
 	public function test_maybe_delete_queries() {
