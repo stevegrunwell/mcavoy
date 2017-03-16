@@ -39,13 +39,22 @@ module.exports = function(grunt) {
 			target: {
 				options: {
 					domainPath: 'languages/',
+					exclude: [
+						'bin/*',
+						'dist/*',
+						'features/*',
+						'node_modules/*',
+						'plugin-repo-assets/*',
+						'tests/*',
+						'vendor/*'
+					],
 					mainFile: 'mcavoy.php',
 					type: 'wp-plugin',
 					updateTimestamp: false,
 					updatePoFiles: true
 				}
 			}
-	}
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
